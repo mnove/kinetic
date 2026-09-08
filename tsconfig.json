@@ -1,4 +1,5 @@
 {
+  "exclude": ["reference.ts", "node_modules", "dist"],
   "include": [
     "**/*.ts",
     "**/*.tsx",
