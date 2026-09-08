@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import { ArrowUpRight } from "lucide-react"
+import { ModeToggle } from "@/components/mode-toggle"
+import { Badge } from "@/components/ui/badge"
 import { studies } from "@/lib/studies"
 
 export function SiteHeader() {
@@ -16,17 +18,20 @@ export function SiteHeader() {
       <nav aria-label="Main navigation">
         <Link to="/" activeProps={{ className: "nav-active" }}>
           The collection{" "}
-          <span className="nav-count">
+          <Badge variant="secondary" className="nav-count">
             {String(studies.length).padStart(2, "0")}
-          </span>
+          </Badge>
         </Link>
         <a href="/#about">
           About the project <ArrowUpRight size={13} />
         </a>
       </nav>
-      <span className="header-note">
-        <span className="live-dot" /> An ongoing exploration
-      </span>
+      <div className="header-actions">
+        <span className="header-note">
+          <span className="live-dot" /> An ongoing exploration
+        </span>
+        <ModeToggle />
+      </div>
     </header>
   )
 }

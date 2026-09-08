@@ -3,6 +3,10 @@ import { ArrowLeft, ArrowRight, Pause, Play, RotateCcw } from "lucide-react"
 import { useState } from "react"
 import { Artwork } from "@/components/artwork"
 import { SiteHeader } from "@/components/site-header"
+import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
 import { studies } from "@/lib/studies"
 import type { Study } from "@/lib/studies"
 
@@ -48,7 +52,11 @@ function StudyPage({ study }: { study: Study }) {
           <p>{study.subtitle}</p>
         </div>
         <div className="study-workspace">
-          <div className="large-preview" style={{ background: study.color }}>
+          <div
+            className="large-preview"
+            data-study-kind={study.kind}
+            style={{ background: study.color }}
+          >
             <div className="preview-top">
               <span>{study.principle.toUpperCase()}</span>
               <span>INTERACTIVE STUDY</span>
@@ -70,15 +78,13 @@ function StudyPage({ study }: { study: Study }) {
             <h2>A change of pace.</h2>
             <p>{study.description}</p>
             <div className="playback">
-              <button
-                className="primary-button"
-                onClick={() => setPlaying(!playing)}
-              >
+              <Button className="flex-1" onClick={() => setPlaying(!playing)}>
                 {playing ? <Pause size={15} /> : <Play size={15} />}{" "}
                 {playing ? "Pause motion" : "Play motion"}
-              </button>
-              <button
-                className="reset-button"
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
                 aria-label="Reset study"
                 title="Reset study"
                 onClick={() => {
@@ -90,40 +96,48 @@ function StudyPage({ study }: { study: Study }) {
                 }}
               >
                 <RotateCcw size={16} />
-              </button>
+              </Button>
             </div>
-            <label className="slider-label" htmlFor="speed">
+            <Label className="slider-label" id="speed-label" htmlFor="speed">
               Playback speed <output>{speed.toFixed(2)}×</output>
-            </label>
-            <input
+            </Label>
+            <Slider
               id="speed"
-              type="range"
-              min="0.25"
-              max="2"
-              step="0.05"
-              value={speed}
-              onChange={(e) => setSpeed(Number(e.target.value))}
+              aria-labelledby="speed-label"
+              min={0.25}
+              max={2}
+              step={0.05}
+              value={[speed]}
+              onValueChange={(value) =>
+                setSpeed(Array.isArray(value) ? value[0] : value)
+              }
             />
-            <label className="slider-label" htmlFor="geometry">
+            <Label
+              className="slider-label"
+              id="geometry-label"
+              htmlFor="geometry"
+            >
               {study.parameter}
               <output>{parameter}</output>
-            </label>
-            <input
+            </Label>
+            <Slider
               id="geometry"
-              type="range"
+              aria-labelledby="geometry-label"
               min={study.min}
               max={study.max}
-              value={parameter}
-              onChange={(e) => setParameter(Number(e.target.value))}
+              value={[parameter]}
+              onValueChange={(value) =>
+                setParameter(Array.isArray(value) ? value[0] : value)
+              }
             />
-            <label className="guide-toggle">
-              <span>Construction guides</span>
-              <input
-                type="checkbox"
+            <div className="guide-toggle">
+              <Label htmlFor="guides">Construction guides</Label>
+              <Switch
+                id="guides"
                 checked={guides}
-                onChange={(e) => setGuides(e.target.checked)}
+                onCheckedChange={setGuides}
               />
-            </label>
+            </div>
             <p className="control-note">
               Small adjustments. New perspectives.
               <br />

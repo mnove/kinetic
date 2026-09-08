@@ -3,6 +3,9 @@ import { ArrowDown, ArrowUpRight, MoveUpRight, Pause, Play } from "lucide-react"
 import { useState } from "react"
 import { Artwork } from "@/components/artwork"
 import { SiteHeader } from "@/components/site-header"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { studies } from "@/lib/studies"
 
 export const Route = createFileRoute("/")({ component: Gallery })
@@ -45,31 +48,36 @@ function Gallery() {
         </section>
         <section id="collection" className="collection">
           <div className="collection-toolbar">
-            <div className="filter-list" aria-label="Filter studies">
+            <ToggleGroup
+              className="filter-list"
+              aria-label="Filter studies"
+              value={[filter]}
+              onValueChange={(values) => {
+                if (values.length) setFilter(values[0])
+              }}
+            >
               {[
                 "All studies",
                 ...new Set(studies.map((study) => study.category)),
               ].map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={filter === f ? "active filter" : "filter"}
-                  aria-pressed={filter === f}
-                >
+                <ToggleGroupItem key={f} value={f} className="filter">
                   {f}
                   {f === "All studies" && (
                     <span>{String(studies.length).padStart(2, "0")}</span>
                   )}
-                </button>
+                </ToggleGroupItem>
               ))}
-            </div>
-            <button
+            </ToggleGroup>
+            <Button
+              variant="ghost"
+              size="sm"
+              aria-label={playing ? "Pause previews" : "Play previews"}
               className="preview-toggle"
               onClick={() => setPlaying(!playing)}
             >
               {playing ? <Pause size={13} /> : <Play size={13} />}
               <span>{playing ? "Pause previews" : "Play previews"}</span>
-            </button>
+            </Button>
           </div>
           <div className="study-grid">
             {shown.map((study) => (
@@ -81,6 +89,7 @@ function Gallery() {
               >
                 <div
                   className="study-preview"
+                  data-study-kind={study.kind}
                   style={{ background: study.color }}
                 >
                   <div className="preview-top">
@@ -103,7 +112,9 @@ function Gallery() {
                     <h2>{study.title}</h2>
                     <p>{study.subtitle}</p>
                   </div>
-                  <span className="category">{study.category}</span>
+                  <Badge variant="outline" className="category">
+                    {study.category}
+                  </Badge>
                 </div>
               </Link>
             ))}

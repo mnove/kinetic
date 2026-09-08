@@ -1,6 +1,14 @@
-import { useEffect, useRef } from "react"
+import { lazy, Suspense, useEffect, useRef, useState } from "react"
+import type { ComponentProps } from "react"
 import { drawThreeBody, drawMobius } from "./extra-artworks"
 import { drawGyroscope } from "./gyroscope"
+import { drawRollingCube } from "./rolling-cube"
+import { drawRollingWave } from "./rolling-wave"
+import {
+  drawTesseract,
+  drawImpossibleTriangle,
+  drawSpirograph,
+} from "./geometric-studies"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -233,8 +241,18 @@ function draw(
       circle(ctx, end.x, end.y, 8, `hsl(${202 + i * 1.6} 19% ${34 + i * 1.6}%)`)
       circle(ctx, end.x - 2, end.y - 2, 2, "#ffffff66")
     }
+  } else if (study.kind === "tesseract") {
+    drawTesseract(ctx, t, parameter, guides)
+  } else if (study.kind === "triangle") {
+    drawImpossibleTriangle(ctx, t, parameter, guides)
+  } else if (study.kind === "spirograph") {
+    drawSpirograph(ctx, t, parameter, guides)
   } else if (study.kind === "threebody") {
     drawThreeBody(ctx, t, parameter, guides)
+  } else if (study.kind === "rollingcube") {
+    drawRollingCube(ctx, t, parameter, guides)
+  } else if (study.kind === "rollingwave") {
+    drawRollingWave(ctx, t, parameter, guides)
   } else if (study.kind === "gyroscope") {
     drawGyroscope(ctx, t, parameter, guides)
   } else if (study.kind === "mobius") {
@@ -253,7 +271,7 @@ function draw(
     }
   }
 }
-export function Artwork({
+function CanvasArtwork({
   study,
   playing = true,
   speed = 1,
@@ -323,5 +341,26 @@ export function Artwork({
       role="img"
       aria-label={`${study.title}: ${study.subtitle}`}
     />
+  )
+}
+
+const Artwork3D = lazy(() => import("./three/artwork-3d"))
+const spatialKinds = new Set([
+  "mobius",
+  "gyroscope",
+  "rollingwave",
+  "rollingcube",
+  "tesseract",
+  "triangle",
+])
+export function Artwork(props: ComponentProps<typeof CanvasArtwork>) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const fallback = <CanvasArtwork {...props} />
+  if (!mounted || !spatialKinds.has(props.study.kind)) return fallback
+  return (
+    <Suspense fallback={fallback}>
+      <Artwork3D {...props} fallback={fallback} />
+    </Suspense>
   )
 }

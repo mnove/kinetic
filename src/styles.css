@@ -49,8 +49,8 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #f9f8f4;
+  --foreground: #292c27;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -128,11 +128,6 @@
     @apply font-sans;
   }
 }
-:root {
-  --background: #f9f8f4;
-  --foreground: #292c27;
-  --font-sans: "Figtree Variable", sans-serif;
-}
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 24px;
@@ -146,10 +141,6 @@ a {
   text-decoration: none;
 }
 button,
-input {
-  font: inherit;
-}
-button,
 a,
 input {
   -webkit-tap-highlight-color: transparent;
@@ -160,7 +151,7 @@ button {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 2px solid #ad593d;
+  outline: 2px solid var(--ring);
   outline-offset: 5px;
 }
 .site-header {
@@ -169,7 +160,7 @@ input:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #deded5;
+  border-bottom: 1px solid var(--border);
 }
 .brand {
   display: flex;
@@ -179,7 +170,7 @@ input:focus-visible {
   letter-spacing: -1.7px;
 }
 .brand-period {
-  color: #a2573c;
+  color: var(--copper);
 }
 .brand-mark {
   width: 32px;
@@ -191,7 +182,7 @@ input:focus-visible {
   position: absolute;
   width: 18px;
   height: 26px;
-  border: 1.3px solid #46523e;
+  border: 1.3px solid var(--border);
   border-radius: 50%;
   left: 7px;
   top: 2px;
@@ -212,23 +203,23 @@ nav a {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #777a71;
+  color: var(--muted-foreground);
 }
 nav a:hover {
-  color: #282d25;
+  color: var(--foreground);
 }
 .nav-active {
-  color: #282d25;
+  color: var(--foreground);
 }
 .nav-count {
   font-size: 10px;
   padding: 2px 5px;
-  background: #e9e9df;
+  background: var(--secondary);
   border-radius: 3px;
 }
 .header-note {
   font-size: 11px;
-  color: #74796b;
+  color: var(--muted-foreground);
   display: flex;
   align-items: center;
   gap: 9px;
@@ -236,7 +227,7 @@ nav a:hover {
 .live-dot {
   width: 5px;
   height: 5px;
-  background: #7b896b;
+  background: var(--sage);
   border-radius: 50%;
 }
 .gallery {
@@ -254,12 +245,12 @@ nav a:hover {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #666d5b;
+  color: var(--muted-foreground);
 }
 .tiny-cross {
   font-size: 21px;
   font-weight: 300;
-  color: #9b6249;
+  color: var(--copper);
 }
 .intro-row {
   display: flex;
@@ -280,13 +271,13 @@ p {
   font-weight: 450;
 }
 .intro h1 span {
-  color: #818773;
+  color: var(--sage);
 }
 .intro-aside {
   padding-bottom: 7px;
 }
 .intro-aside p {
-  color: #797c71;
+  color: var(--muted-foreground);
   font-size: 14px;
   line-height: 1.8;
 }
@@ -302,14 +293,14 @@ p {
   justify-content: space-between;
   margin-top: 46px;
   padding-bottom: 28px;
-  border-bottom: 1px solid #ddded3;
-  color: #858779;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted-foreground);
   font: 9px monospace;
   letter-spacing: 1.35px;
 }
 .separator {
   margin: 0 12px;
-  color: #b7b9ac;
+  color: var(--muted-foreground);
 }
 .collection {
   padding-top: 26px;
@@ -326,35 +317,14 @@ p {
   gap: 6px;
   flex-wrap: wrap;
 }
-.filter {
-  border: 0;
-  background: transparent;
-  color: #7b7d71;
-  padding: 9px 14px;
-  border-radius: 5px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-.filter:hover {
-  background: #eeeee5;
-}
-.filter.active {
-  background: #333d30;
-  color: #fafaf4;
-}
-.filter span {
-  font-size: 9px;
-  color: #bbc1b5;
-}
+
 .preview-toggle {
   background: none;
   border: 0;
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #797e70;
+  color: var(--muted-foreground);
   font-size: 11px;
   padding: 8px 0;
   white-space: nowrap;
@@ -452,14 +422,14 @@ p {
 .card-info p {
   font-size: 12px;
   margin-top: 6px;
-  color: #838577;
+  color: var(--muted-foreground);
 }
 .category {
-  border: 1px solid #ddded3;
+  border: 1px solid var(--border);
   border-radius: 20px;
   padding: 5px 10px;
   font-size: 10px;
-  color: #737965;
+  color: var(--muted-foreground);
   margin-top: 2px;
 }
 .collection-end {
@@ -468,8 +438,8 @@ p {
   align-items: center;
   margin-top: 35px;
   padding: 23px 0;
-  border-top: 1px solid #ddded3;
-  color: #848776;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
   font: 9px monospace;
   letter-spacing: 1px;
 }
@@ -486,7 +456,7 @@ p {
   grid-template-columns: 1fr 1.6fr 1.5fr;
   gap: 30px;
   padding: 65px 0 85px;
-  border-top: 1px solid #ddded3;
+  border-top: 1px solid var(--border);
   margin-top: 28px;
   align-items: start;
 }
@@ -502,11 +472,11 @@ p {
 }
 .about h2 em {
   font-family: Georgia, serif;
-  color: #7a826c;
+  color: var(--sage);
 }
 .about p {
   font-size: 13px;
-  color: #7e8174;
+  color: var(--muted-foreground);
   line-height: 1.8;
   margin-bottom: 14px;
 }
@@ -518,19 +488,19 @@ p {
   margin-top: 24px;
 }
 footer {
-  border-top: 1px solid #deded5;
+  border-top: 1px solid var(--border);
   margin: 0 5%;
   padding: 25px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #888b7c;
+  color: var(--muted-foreground);
   font-size: 10px;
 }
 .footer-brand {
   font-size: 23px;
   font-weight: 600;
-  color: #414735;
+  color: var(--foreground);
   letter-spacing: -1px;
 }
 .detail {
@@ -540,7 +510,7 @@ footer {
 }
 .back-link {
   font-size: 12px;
-  color: #727b67;
+  color: var(--muted-foreground);
   display: inline-flex;
   gap: 8px;
   align-items: center;
@@ -559,11 +529,11 @@ footer {
   margin-top: 10px;
 }
 .detail-heading h1 span {
-  color: #a15f44;
+  color: var(--copper);
 }
 .detail-heading p {
   font-size: 14px;
-  color: #7b8071;
+  color: var(--muted-foreground);
   padding-bottom: 9px;
 }
 .study-workspace {
@@ -602,35 +572,14 @@ footer {
 .controls > p {
   font-size: 12px;
   line-height: 1.8;
-  color: #777e6d;
+  color: var(--muted-foreground);
 }
 .playback {
   display: flex;
   gap: 8px;
   margin: 25px 0;
 }
-.primary-button {
-  background: #37412f;
-  color: #f7f7f0;
-  border: 0;
-  display: flex;
-  gap: 9px;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 20px;
-  border-radius: 4px;
-  font-size: 12px;
-  flex: 1;
-}
-.reset-button {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  background: transparent;
-  border: 1px solid #d4d8c9;
-  border-radius: 4px;
-  color: #647258;
-}
+
 .slider-label {
   display: flex;
   justify-content: space-between;
@@ -638,36 +587,27 @@ footer {
   margin-top: 22px;
 }
 .slider-label output {
-  color: #7c836f;
+  color: var(--muted-foreground);
   font-family: monospace;
 }
-.controls input[type="range"] {
-  width: 100%;
-  accent-color: #667655;
-  margin-top: 14px;
-  cursor: pointer;
-}
+
 .guide-toggle {
   margin: 25px 0;
-  border-top: 1px solid #deded5;
+  border-top: 1px solid var(--border);
   padding-top: 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
 }
-.guide-toggle input {
-  accent-color: #667655;
-  width: 16px;
-  height: 16px;
-}
+
 .controls .control-note {
   font-size: 10px;
-  color: #939786;
+  color: var(--muted-foreground);
 }
 .detail-bottom {
   margin-top: 27px;
-  border-top: 1px solid #deded5;
+  border-top: 1px solid var(--border);
   padding-top: 25px;
   display: flex;
   justify-content: space-between;
@@ -676,7 +616,7 @@ footer {
 }
 .detail-bottom > span {
   font: 9px monospace;
-  color: #858b78;
+  color: var(--muted-foreground);
   letter-spacing: 1px;
 }
 .detail-bottom a {
@@ -771,10 +711,7 @@ footer {
   .filter-list {
     gap: 2px;
   }
-  .filter {
-    padding: 8px 9px;
-    font-size: 10px;
-  }
+
   .preview-toggle span {
     display: none;
   }
@@ -850,4 +787,123 @@ footer {
   *::after {
     transition: none !important;
   }
+}
+
+/* Shared shadcn tokens retain the warm gallery palette in both themes. */
+:root {
+  --card: #f3f2eb;
+  --card-foreground: #292c27;
+  --popover: #f9f8f4;
+  --popover-foreground: #292c27;
+  --primary: #37412f;
+  --primary-foreground: #f9f8f4;
+  --secondary: #eeeee5;
+  --secondary-foreground: #414735;
+  --muted: #eeeee5;
+  --muted-foreground: #6d7364;
+  --accent: #e9ece3;
+  --accent-foreground: #292c27;
+  --border: #ddded3;
+  --input: #c9cebd;
+  --ring: #8b7958;
+  --sage: #818773;
+  --copper: #a2573c;
+}
+:root.dark {
+  --background: #191c19;
+  --foreground: #e8e9df;
+  --card: #222722;
+  --card-foreground: #e8e9df;
+  --popover: #252b25;
+  --popover-foreground: #e8e9df;
+  --primary: #bcc9a9;
+  --primary-foreground: #20271e;
+  --secondary: #2a3028;
+  --secondary-foreground: #d6dfcb;
+  --muted: #292f28;
+  --muted-foreground: #a3ad9b;
+  --accent: #333d30;
+  --accent-foreground: #eef0e7;
+  --border: #3b4337;
+  --input: #4c5745;
+  --ring: #c7b38b;
+  --sage: #a6b294;
+  --copper: #ce9775;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.filter-list {
+  flex-wrap: wrap;
+}
+.filter-list .filter {
+  font-size: 11px;
+  padding-inline: 12px;
+}
+.filter-list .filter[data-pressed] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.filter-list .filter span {
+  font-size: 9px;
+  opacity: 0.7;
+}
+.controls [data-slot="slider"] {
+  margin-top: 16px;
+  padding-block: 8px;
+}
+.guide-toggle [data-slot="label"] {
+  font-size: 11px;
+}
+/* Invert the entire illustration surface, including its matching pivot fills
+   and annotations; hue rotation preserves the identity of each study. */
+.dark .study-preview,
+.dark .large-preview {
+  filter: invert(0.9) hue-rotate(180deg) saturate(0.75);
+}
+@media (max-width: 620px) {
+  .header-actions {
+    gap: 8px;
+  }
+  .site-header {
+    gap: 12px;
+  }
+  .filter-list .filter {
+    padding-inline: 8px;
+    font-size: 10px;
+  }
+}
+
+/* The rolling wave is exhibited on black in either interface theme. */
+[data-study-kind="rollingwave"] {
+  filter: none !important;
+}
+[data-study-kind="rollingwave"] .preview-top,
+[data-study-kind="rollingwave"] .preview-bottom > span:first-child,
+[data-study-kind="rollingwave"] .canvas-caption {
+  color: #a6a3b5;
+}
+[data-study-kind="rollingwave"] .enter-circle {
+  color: #a6a3b5;
+  border-color: #494451;
+}
+.study-card:hover [data-study-kind="rollingwave"] .enter-circle {
+  background: #25212e;
+}
+[data-study-kind="rollingwave"] .preview-status i {
+  background: #96a8d4;
+}
+
+.webgl-artwork {
+  aspect-ratio: 10 / 7;
+  flex-shrink: 0;
+}
+.webgl-artwork > div {
+  width: 100%;
+  height: 100%;
+}
+.webgl-artwork canvas {
+  display: block;
 }
