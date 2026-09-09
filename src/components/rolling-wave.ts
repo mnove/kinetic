@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import { rollingWave } from "@/lib/rolling-wave"
 import type { Vector3 } from "@/lib/kinetic-math"
 
@@ -21,7 +22,7 @@ export function drawRollingWave(
     ctx.beginPath()
     ctx.ellipse(300, 232, 88, 88 * 0.47, 0, 0, Math.PI * 2)
     ctx.setLineDash([2, 7])
-    ctx.strokeStyle = "#68617a33"
+    ctx.strokeStyle = "#64646433"
     ctx.lineWidth = 0.7
     ctx.stroke()
     ctx.setLineDash([])
@@ -34,9 +35,9 @@ export function drawRollingWave(
   blocks.forEach((block, i) => {
     // Copper on the far side blends into plum at the front, as in the reference.
     const front = (1 + Math.sin((i / blocks.length) * Math.PI * 2)) / 2
-    const top = `rgb(${Math.round(113 - 35 * front)}, ${Math.round(47 - 16 * front)}, ${Math.round(30 + 48 * front)})`
-    const side = `rgb(${Math.round(60 - 23 * front)}, ${Math.round(28 - 9 * front)}, ${Math.round(27 + 15 * front)})`
-    const colors = [side, top, side, side, "#6190ff", "#53668c"]
+    const top = `rgb(${64 - 12 * front}, ${64 - 12 * front}, ${64 - 12 * front})`
+    const side = "#292929"
+    const colors = [side, top, side, side, artAccents.blue, "#656565"]
     const indices = [
       [0, 3, 2, 1],
       [4, 5, 6, 7],

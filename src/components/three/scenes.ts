@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import * as THREE from "three"
 import { mobiusPoint } from "@/lib/kinetic-math"
 import { rollingCube } from "@/lib/rolling-cube"
@@ -134,7 +135,7 @@ export function createStudyScene(
     )
     geometry.setIndex(indices)
     geometry.computeVertexNormals()
-    mesh(group, geometry, "#a496b5")
+    mesh(group, geometry, "#9b9b9b")
     if (guides) {
       const edges: number[] = []
       for (let i = 0; i < segments; i++)
@@ -147,7 +148,7 @@ export function createStudyScene(
             edges.push(p.x, p.y, p.z)
           }
         }
-      lines(group, edges, "#625373")
+      lines(group, edges, "#585858")
     }
     const markerGeometry = new THREE.BufferGeometry()
     const markerPositions = new Float32Array(48 * 9)
@@ -158,7 +159,7 @@ export function createStudyScene(
     const marker = new THREE.Mesh(
       markerGeometry,
       new THREE.MeshBasicMaterial({
-        color: "#f0c675",
+        color: artAccents.red,
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: -3,
@@ -192,28 +193,28 @@ export function createStudyScene(
     }
   } else if (kind === "gyroscope") {
     group.rotation.x = 0.38
-    torus(group, 145, 2.5, "#8a9990", true)
+    torus(group, 145, 2.5, "#959595", true)
     const middle = new THREE.Group()
     group.add(middle)
-    torus(middle, 124, 3, "#526b63")
+    torus(middle, 124, 3, "#656565")
     const inner = new THREE.Group()
     middle.add(inner)
     inner.rotation.x = (parameter * Math.PI) / 180
-    torus(inner, 101, 2.5, "#7a8b76", true)
+    torus(inner, 101, 2.5, "#868686", true)
     for (const sign of [-1, 1]) {
       rod(
         middle,
         new THREE.Vector3(124 * sign, 0, 0),
         new THREE.Vector3(145 * sign, 0, 0),
         3,
-        "#65796d"
+        "#747474"
       )
       rod(
         inner,
         new THREE.Vector3(101 * sign, 0, 0),
         new THREE.Vector3(124 * sign, 0, 0),
         3,
-        "#65796d"
+        "#747474"
       )
     }
     rod(
@@ -221,12 +222,12 @@ export function createStudyScene(
       new THREE.Vector3(0, 0, -101),
       new THREE.Vector3(0, 0, 101),
       2.5,
-      "#51665d"
+      "#616161"
     )
     const rotor = new THREE.Group()
     inner.add(rotor)
-    torus(rotor, 73, 5, "#b18a51")
-    torus(rotor, 12, 3, "#94734c")
+    torus(rotor, 73, 5, artAccents.gold)
+    torus(rotor, 12, 3, "#777777")
     for (let i = 0; i < 8; i++) {
       const a = (i / 8) * Math.PI * 2
       rod(
@@ -234,10 +235,10 @@ export function createStudyScene(
         new THREE.Vector3(12 * Math.cos(a), 12 * Math.sin(a), 0),
         new THREE.Vector3(70 * Math.cos(a), 70 * Math.sin(a), 0),
         1.6,
-        i === 0 ? "#e6bf7b" : "#ad895e"
+        i === 0 ? "#c2c2c2" : "#8e8e8e"
       )
     }
-    if (guides) lines(group, [0, -165, 0, 0, 165, 0], "#a2ad9a")
+    if (guides) lines(group, [0, -165, 0, 0, 165, 0], "#a9a9a9")
     update = (time) => {
       middle.rotation.y = time * 0.24 + 0.4
       rotor.rotation.z = time * 3.2
@@ -258,13 +259,13 @@ export function createStudyScene(
       base.add(hinge)
       hinges.push(hinge)
       const top = new THREE.Color().setRGB(
-        (113 - 35 * front) / 255,
-        (47 - 16 * front) / 255,
-        (30 + 48 * front) / 255,
+        (64 - 12 * front) / 255,
+        (64 - 12 * front) / 255,
+        (64 - 12 * front) / 255,
         THREE.SRGBColorSpace
       )
-      const dark = material("#30202e"),
-        cap = material("#6190ff"),
+      const dark = material("#242424"),
+        cap = material(artAccents.blue),
         face = material("#ffffff")
       face.color.copy(top)
       const block = new THREE.Mesh(
@@ -274,7 +275,7 @@ export function createStudyScene(
       block.position.set(44, 6.5, 0)
       hinge.add(block)
     }
-    if (guides) torus(group, 88, 0.3, "#514357", true)
+    if (guides) torus(group, 88, 0.3, "#474747", true)
     update = (time) =>
       hinges.forEach((hinge, i) => {
         hinge.rotation.z =
@@ -287,9 +288,9 @@ export function createStudyScene(
     const wire = lines(
       group,
       [],
-      kind === "rollingcube" ? "#53685a" : "#52658a"
+      kind === "rollingcube" ? "#636363" : "#646464"
     )
-    const links = lines(group, [], "#b17b51")
+    const links = lines(group, [], artAccents.blue)
     group.rotation.set(0.38, -0.6, 0)
     const put = (target: THREE.LineSegments, positions: number[]) => {
       const attribute = target.geometry.getAttribute("position")
@@ -307,6 +308,11 @@ export function createStudyScene(
       target.geometry.computeBoundingSphere()
     }
     if (kind === "rollingcube") {
+      const marker = mesh(
+        group,
+        new THREE.SphereGeometry(3.5, 12, 8),
+        artAccents.blue
+      )
       update = (time) => {
         const slices = rollingCube(time, parameter),
           positions: number[] = []
@@ -331,6 +337,8 @@ export function createStudyScene(
           )
             slice.forEach((p, k) => edge(p, slices[i - 1][k]))
         })
+        const point = slices[0][0]
+        marker.position.set(point.x * 66, (point.y - 1) * 66, point.z * 66)
         put(wire, positions)
       }
     } else {
@@ -349,7 +357,7 @@ export function createStudyScene(
       }
     }
     if (guides)
-      lines(group, [-170, 0, 0, 170, 0, 0, 0, -150, 0, 0, 150, 0], "#a7ae9c")
+      lines(group, [-170, 0, 0, 170, 0, 0, 0, -150, 0, 0, 150, 0], "#ababab")
   } else {
     const outer = [
         [0, 125],
@@ -380,9 +388,9 @@ export function createStudyScene(
       )
       geometry.setIndex(indices)
       geometry.computeVertexNormals()
-      mesh(group, geometry, ["#a3ad92", "#6b7c68", "#c4c8ad"][i])
+      mesh(group, geometry, ["#a9a9a9", artAccents.teal, "#c5c5c5"][i])
     }
-    if (guides) lines(group, [-150, -120, 0, 150, -120, 0], "#a6ac98")
+    if (guides) lines(group, [-150, -120, 0, 150, -120, 0], "#a9a9a9")
     update = (time) => {
       group.rotation.y =
         (Math.pow(Math.sin(time * 0.22), 6) * parameter * Math.PI) / 180

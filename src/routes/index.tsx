@@ -18,7 +18,7 @@ function Gallery() {
   return (
     <>
       <SiteHeader />
-      <main className="gallery">
+      <main className="gallery" id="main-content">
         <section className="intro">
           <div className="eyebrow">
             <span className="tiny-cross">+</span> A COLLECTION OF MOTION STUDIES
@@ -35,12 +35,12 @@ function Gallery() {
                 <br />A small playground for things that never stand still.
               </p>
               <a href="#collection">
-                Find your moment of motion <ArrowDown size={15} />
+                Explore the collection <ArrowDown size={15} />
               </a>
             </div>
           </div>
           <div className="intro-bottom">
-            <span>MATHEMATICS, MADE MESMERIZING.</span>
+            <span>GEOMETRY / RHYTHM / PERCEPTION</span>
             <span>
               EST. 2026 <span className="separator">/</span> VOL. 001
             </span>

@@ -1,8 +1,9 @@
+import { artAccents } from "@/lib/art-palette"
 import { mobiusPoint, sampleOrbit } from "@/lib/kinetic-math"
 import { markerPatches, clipSurfacePatch } from "@/lib/surface-marker"
 import type { Vector3 } from "@/lib/kinetic-math"
 
-const colors = ["#b26948", "#557c83", "#77734e"]
+const colors = [artAccents.orange, artAccents.blue, artAccents.teal]
 function dot(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -28,7 +29,7 @@ export function drawThreeBody(
   const time = t * 0.45
   if (guides) {
     ctx.setLineDash([3, 5])
-    ctx.strokeStyle = "#a6a692"
+    ctx.strokeStyle = "#a5a5a5"
     ctx.lineWidth = 0.7
     ctx.beginPath()
     ctx.moveTo(95, 210)
@@ -44,7 +45,7 @@ export function drawThreeBody(
       else ctx.lineTo(p.x, p.y)
     }
     ctx.closePath()
-    ctx.strokeStyle = "#9b9b8955"
+    ctx.strokeStyle = "#9a9a9a55"
     ctx.stroke()
   }
   for (let body = 0; body < 3; body++) {
@@ -67,7 +68,7 @@ export function drawThreeBody(
   }
   if (guides) {
     ctx.font = "9px monospace"
-    ctx.fillStyle = "#858773"
+    ctx.fillStyle = "#858585"
     ctx.textAlign = "center"
     ctx.fillText("m₁ = m₂ = m₃", 300, 355)
     ctx.textAlign = "start"
@@ -93,7 +94,7 @@ export function drawMobius(
     }
   }
   if (guides) {
-    ctx.strokeStyle = "#a698ab66"
+    ctx.strokeStyle = "#9c9c9c66"
     ctx.lineWidth = 0.7
     ctx.setLineDash([3, 5])
     ctx.beginPath()
@@ -130,7 +131,7 @@ export function drawMobius(
             k ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)
           )
           ctx.closePath()
-          ctx.fillStyle = `hsl(278 13% ${shade}%)`
+          ctx.fillStyle = `hsl(0 0% ${shade}%)`
           ctx.fill()
           ctx.strokeStyle = ctx.fillStyle
           ctx.lineWidth = 0.5
@@ -139,7 +140,7 @@ export function drawMobius(
             ctx.beginPath()
             ctx.moveTo(points[0].x, points[0].y)
             ctx.lineTo(points[3].x, points[3].y)
-            ctx.strokeStyle = "#5c496544"
+            ctx.strokeStyle = "#4f4f4f44"
             ctx.lineWidth = 0.6
             ctx.stroke()
           }
@@ -160,9 +161,9 @@ export function drawMobius(
                 k ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)
               )
               ctx.closePath()
-              ctx.fillStyle = "#e8c08b"
+              ctx.fillStyle = artAccents.red
               ctx.fill()
-              ctx.strokeStyle = "#e8c08b"
+              ctx.strokeStyle = artAccents.red
               ctx.lineWidth = 0.5
               ctx.stroke()
             }
@@ -174,7 +175,7 @@ export function drawMobius(
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = "#62536e"
+            ctx.strokeStyle = "#585858"
             ctx.lineWidth = 1.3
             ctx.stroke()
           }

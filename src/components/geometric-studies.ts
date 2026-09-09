@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import {
   spirographPeriod,
   spirographPoint,
@@ -57,9 +58,9 @@ export function drawTesseract(
     }
   })
   if (guides) {
-    circle(ctx, { x: 300, y: 210 }, 160, "#a1a7bc44")
-    line(ctx, { x: 294, y: 210 }, { x: 306, y: 210 }, "#a1a7bc")
-    line(ctx, { x: 300, y: 204 }, { x: 300, y: 216 }, "#a1a7bc")
+    circle(ctx, { x: 300, y: 210 }, 160, "#a7a7a744")
+    line(ctx, { x: 294, y: 210 }, { x: 306, y: 210 }, "#a7a7a7")
+    line(ctx, { x: 300, y: 204 }, { x: 300, y: 216 }, "#a7a7a7")
   }
   const edges = [...tesseractEdges].sort(
     ([a, b], [c, d]) => points[a].z + points[b].z - points[c].z - points[d].z
@@ -69,12 +70,12 @@ export function drawTesseract(
       ctx,
       points[a],
       points[b],
-      (a ^ b) === 8 ? "#b07850" : a & 8 ? "#687698" : "#414f70",
+      (a ^ b) === 8 ? artAccents.blue : a & 8 ? "#757575" : "#4e4e4e",
       (a ^ b) === 8 ? 1.2 : 1.7
     )
   )
   points.forEach((p) =>
-    circle(ctx, p, 2.8, p.w > 0 ? "#b07850" : "#53617f", true)
+    circle(ctx, p, 2.8, p.w > 0 ? artAccents.blue : "#606060", true)
   )
 }
 export function drawSpirograph(
@@ -89,14 +90,14 @@ export function drawSpirograph(
     return { x: 300 + p.x, y: 210 + p.y }
   }
   if (guides) {
-    circle(ctx, { x: 300, y: 210 }, 105, "#a8ab9988")
+    circle(ctx, { x: 300, y: 210 }, 105, "#a9a9a988")
     const center = {
       x: 300 + 63 * Math.cos(angle),
       y: 210 + 63 * Math.sin(angle),
     }
-    circle(ctx, center, 42, "#9ba08c")
-    line(ctx, center, screen(angle), "#999b87")
-    circle(ctx, center, 2, "#7d856b", true)
+    circle(ctx, center, 42, "#9d9d9d")
+    line(ctx, center, screen(angle), "#999999")
+    circle(ctx, center, 2, "#818181", true)
   }
   // A faint complete trace keeps the form legible even when motion is paused.
   ctx.beginPath()
@@ -105,17 +106,17 @@ export function drawSpirograph(
     if (i === 0) ctx.moveTo(p.x, p.y)
     else ctx.lineTo(p.x, p.y)
   }
-  ctx.strokeStyle = "#838d7544"
+  ctx.strokeStyle = "#89898944"
   ctx.lineWidth = 0.8
   ctx.stroke()
   for (let i = 0; i < 360; i++) {
     const a = angle - spirographPeriod * (1 - i / 360),
       b = angle - spirographPeriod * (1 - (i + 1) / 360)
     ctx.globalAlpha = 0.12 + (0.88 * i) / 360
-    line(ctx, screen(a), screen(b), "#526d53", 1.7)
+    line(ctx, screen(a), screen(b), "#656565", 1.7)
   }
   ctx.globalAlpha = 1
-  circle(ctx, screen(angle), 4, "#b87a51", true)
+  circle(ctx, screen(angle), 4, artAccents.orange, true)
 }
 export function drawImpossibleTriangle(
   ctx: CanvasRenderingContext2D,
@@ -146,7 +147,7 @@ export function drawImpossibleTriangle(
     color: string
     depth: number
   }> = []
-  const colors = ["#9da98e", "#6b7c68", "#c4c8ad"]
+  const colors = ["#a4a4a4", artAccents.teal, "#c5c5c5"]
   const add = (points: ReturnType<typeof project>[], color: string) =>
     faces.push({
       points,
@@ -159,9 +160,9 @@ export function drawImpossibleTriangle(
     const depths = [-45, 45, 45, -45]
     const front = shape.map((p, k) => project(p, depths[k] + 7)),
       back = shape.map((p, k) => project(p, depths[k] - 7))
-    add(back, "#586551")
+    add(back, "#616161")
     for (let k = 0; k < 4; k++)
-      add([back[k], back[(k + 1) % 4], front[(k + 1) % 4], front[k]], "#64735e")
+      add([back[k], back[(k + 1) % 4], front[(k + 1) % 4], front[k]], "#6e6e6e")
     add(front, colors[i])
     // A narrow bevel gives each beam a readable thickness in the illusion view.
     const bevel = shape.map((p, k) =>
@@ -174,7 +175,7 @@ export function drawImpossibleTriangle(
     )
     add(
       bevel.map((p, k) => project(p, depths[k] + 7.1)),
-      ["#c0c7af", "#94a187", "#d9dcc8"][i]
+      ["#c4c4c4", "#9c9c9c", "#dadada"][i]
     )
   }
   faces
@@ -193,7 +194,7 @@ export function drawImpossibleTriangle(
     })
   if (guides) {
     ctx.font = "9px monospace"
-    ctx.fillStyle = "#7a826e"
+    ctx.fillStyle = "#7f7f7f"
     ctx.textAlign = "center"
     ctx.fillText(
       yaw < 0.05

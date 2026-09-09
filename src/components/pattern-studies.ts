@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import { mirrorSector, rollingPolygon } from "@/lib/pattern-studies"
 
 export function drawKaleidoscope(
@@ -8,12 +9,12 @@ export function drawKaleidoscope(
 ) {
   const radius = 151
   const colors = [
-    "#788f91",
-    "#b47d69",
-    "#777799",
-    "#c3a472",
-    "#506f77",
-    "#9a6b85",
+    artAccents.teal,
+    artAccents.orange,
+    artAccents.violet,
+    artAccents.gold,
+    artAccents.blue,
+    artAccents.red,
   ]
   ctx.save()
   ctx.translate(300, 210)
@@ -27,7 +28,7 @@ export function drawKaleidoscope(
     ctx.arc(0, 0, radius, 0, wedge)
     ctx.closePath()
     ctx.clip()
-    ctx.fillStyle = "#e0d9dc"
+    ctx.fillStyle = "#dbdbdb"
     ctx.fillRect(-radius, -radius, radius * 2, radius * 2)
     for (let i = 0; i < 10; i++) {
       const phase = t * 0.24 + i * 1.37
@@ -53,7 +54,7 @@ export function drawKaleidoscope(
       }
       ctx.fill()
       ctx.globalAlpha = 1
-      ctx.strokeStyle = "#f4ece866"
+      ctx.strokeStyle = "#ededed66"
       ctx.lineWidth = 1
       ctx.stroke()
       ctx.restore()
@@ -61,7 +62,7 @@ export function drawKaleidoscope(
     ctx.restore()
   }
   if (guides) {
-    ctx.strokeStyle = "#6e69764a"
+    ctx.strokeStyle = "#6b6b6b4a"
     ctx.lineWidth = 0.6
     for (let i = 0; i < pairs * 2; i++) {
       const a = (i * Math.PI) / pairs
@@ -84,7 +85,7 @@ export function drawRollingPolygons(
 ) {
   const model = rollingPolygon(t, sides),
     floor = 291
-  ctx.strokeStyle = "#8e9b8b"
+  ctx.strokeStyle = "#979797"
   ctx.lineWidth = 1
   ctx.beginPath()
   ctx.moveTo(78, floor)
@@ -100,14 +101,14 @@ export function drawRollingPolygons(
     ctx.beginPath()
     ctx.moveTo(x, floor + 5)
     ctx.lineTo(x - 5, floor + 10)
-    ctx.strokeStyle = "#a5af9d88"
+    ctx.strokeStyle = "#acacac88"
     ctx.stroke()
   }
   ctx.restore()
   if (guides) {
     ctx.beginPath()
     ctx.arc(300, floor - model.centerY, 72, 0, Math.PI * 2)
-    ctx.strokeStyle = "#97a59066"
+    ctx.strokeStyle = "#a1a1a166"
     ctx.setLineDash([3, 5])
     ctx.stroke()
     ctx.setLineDash([])
@@ -120,8 +121,8 @@ export function drawRollingPolygons(
       if (i === 0) ctx.moveTo(x, y)
       else ctx.lineTo(x, y)
     }
-    ctx.strokeStyle = "#b18b6377"
-    ctx.lineWidth = 1
+    ctx.strokeStyle = artAccents.lime
+    ctx.lineWidth = 1.6
     ctx.stroke()
   }
   ctx.beginPath()
@@ -129,9 +130,9 @@ export function drawRollingPolygons(
     i ? ctx.lineTo(300 + p.x, floor - p.y) : ctx.moveTo(300 + p.x, floor - p.y)
   )
   ctx.closePath()
-  ctx.fillStyle = "#9aaa9260"
+  ctx.fillStyle = "#a5a5a560"
   ctx.fill()
-  ctx.strokeStyle = "#526b50"
+  ctx.strokeStyle = "#646464"
   ctx.lineWidth = 2
   ctx.stroke()
   if (guides) {
@@ -139,17 +140,17 @@ export function drawRollingPolygons(
     ctx.beginPath()
     ctx.moveTo(300, floor - model.centerY)
     ctx.lineTo(300 + marked.x, floor - marked.y)
-    ctx.strokeStyle = "#73866a"
+    ctx.strokeStyle = "#808080"
     ctx.lineWidth = 0.9
     ctx.stroke()
     ctx.beginPath()
     ctx.arc(300 + model.pivotX, floor, 3, 0, Math.PI * 2)
-    ctx.fillStyle = "#526b50"
+    ctx.fillStyle = "#646464"
     ctx.fill()
   }
   const marked = model.vertices[0]
   ctx.beginPath()
   ctx.arc(300 + marked.x, floor - marked.y, 4, 0, Math.PI * 2)
-  ctx.fillStyle = "#b48055"
+  ctx.fillStyle = artAccents.lime
   ctx.fill()
 }

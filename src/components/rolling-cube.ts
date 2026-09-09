@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import { rollingCube } from "@/lib/rolling-cube"
 import type { Vector3 } from "@/lib/kinetic-math"
 
@@ -30,7 +31,7 @@ export function drawRollingCube(
   })
   if (guides) {
     ctx.setLineDash([2, 6])
-    ctx.strokeStyle = "#a6aaa055"
+    ctx.strokeStyle = "#a8a8a855"
     ctx.lineWidth = 0.7
     for (const z of [-1, 1]) {
       const a = project({ x: -2.5, y: 0, z }),
@@ -50,8 +51,13 @@ export function drawRollingCube(
       ctx.beginPath()
       ctx.moveTo(p.x, p.y)
       ctx.lineTo(q.x, q.y)
-      ctx.strokeStyle = depth < 0 ? "#738078" : "#3d4a42"
+      ctx.strokeStyle = depth < 0 ? "#7d7d7d" : "#474747"
       ctx.lineWidth = 1.25
       ctx.stroke()
     })
+  const marker = project(slices[0][0])
+  ctx.beginPath()
+  ctx.arc(marker.x, marker.y, 3.5, 0, Math.PI * 2)
+  ctx.fillStyle = artAccents.blue
+  ctx.fill()
 }

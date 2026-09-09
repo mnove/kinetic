@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import { lazy, Suspense, useEffect, useRef, useState } from "react"
 import type { ComponentProps } from "react"
 import { drawThreeBody, drawMobius } from "./extra-artworks"
@@ -15,7 +16,7 @@ import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
 const tau = Math.PI * 2
-const ink = "#34463c"
+const ink = "#414141"
 function line(
   ctx: CanvasRenderingContext2D,
   a: Point,
@@ -56,7 +57,7 @@ function polygon(ctx: CanvasRenderingContext2D, points: Point[], fill: string) {
   ctx.closePath()
   ctx.fillStyle = fill
   ctx.fill()
-  ctx.strokeStyle = "#796e59"
+  ctx.strokeStyle = "#6f6f6f"
   ctx.lineWidth = 0.7
   ctx.stroke()
 }
@@ -96,12 +97,12 @@ function draw(
       }))
     )
     if (guides) {
-      ctx.strokeStyle = "#a5afa0"
+      ctx.strokeStyle = "#acacac"
       ctx.lineWidth = 0.6
       ctx.strokeRect(116, 26, 368, 368)
       centers.forEach((c) => {
-        circle(ctx, c.x, c.y, parameter, undefined, "#aab3a4")
-        circle(ctx, c.x, c.y, 2, "#9da794")
+        circle(ctx, c.x, c.y, parameter, undefined, "#b0b0b0")
+        circle(ctx, c.x, c.y, 2, "#a4a4a4")
       })
     }
     const rods = [
@@ -127,7 +128,7 @@ function draw(
         ctx,
         points[a],
         points[b],
-        i < 4 ? ink : "#85917c",
+        i < 4 ? artAccents.blue : "#8d8d8d",
         i < 4 ? 2.5 : 1.5
       )
     )
@@ -160,8 +161,8 @@ function draw(
     })
     if (guides) {
       ctx.setLineDash([3, 5])
-      line(ctx, { x: 70, y: 352 }, { x: 530, y: 352 }, "#c8bfaf", 0.7)
-      line(ctx, { x: 300, y: 60 }, { x: 300, y: 365 }, "#c8bfaf", 0.7)
+      line(ctx, { x: 70, y: 352 }, { x: 530, y: 352 }, "#c0c0c0", 0.7)
+      line(ctx, { x: 300, y: 60 }, { x: 300, y: 365 }, "#c0c0c0", 0.7)
       ctx.setLineDash([])
     }
     for (const side of [0, 3, 1, 2]) {
@@ -174,7 +175,7 @@ function draw(
           lower(outer[next], parameter + 8),
           lower(outer[side], parameter + 8),
         ],
-        side < 2 ? "#7c836d" : "#a4a58c"
+        side < 2 ? "#808080" : "#a3a3a3"
       )
       polygon(
         ctx,
@@ -184,7 +185,7 @@ function draw(
           lower(inner[next], parameter + 8),
           lower(inner[side], parameter + 8),
         ],
-        "#8b9079"
+        "#8d8d8d"
       )
     }
     const rise = parameter * 0.3
@@ -198,9 +199,9 @@ function draw(
         polygon(
           ctx,
           [a, lower(b, rise), lower(c, rise), d],
-          side % 2 ? "#d6d2bb" : "#c6c8ac"
+          side % 2 ? "#d1d1d1" : "#c6c6c6"
         )
-        polygon(ctx, [b, c, lower(c, rise), lower(b, rise)], "#818a71")
+        polygon(ctx, [b, c, lower(c, rise), lower(b, rise)], "#868686")
       }
     }
     const progress = (t * 2) % 28,
@@ -214,12 +215,12 @@ function draw(
     ctx.save()
     ctx.translate(v.x, v.y)
     ctx.scale(1, 0.4)
-    circle(ctx, 0, 0, 8, "#666b5c44")
+    circle(ctx, 0, 0, 8, "#69696944")
     ctx.restore()
-    circle(ctx, v.x, v.y - 10 - Math.sin(f * Math.PI) * 5, 7, "#bd5f3c")
-    circle(ctx, v.x - 2, v.y - 12 - Math.sin(f * Math.PI) * 5, 2, "#e4a17c")
+    circle(ctx, v.x, v.y - 10 - Math.sin(f * Math.PI) * 5, 7, artAccents.orange)
+    circle(ctx, v.x - 2, v.y - 12 - Math.sin(f * Math.PI) * 5, 2, "#adadad")
   } else if (study.kind === "pendulum") {
-    line(ctx, { x: 107, y: 78 }, { x: 493, y: 78 }, "#586876", 2)
+    line(ctx, { x: 107, y: 78 }, { x: 493, y: 78 }, "#666666", 2)
     for (let i = 0; i < 15; i++) {
       const origin = { x: 118 + i * 26, y: 78 },
         length = 166 + i * 4.6
@@ -230,17 +231,23 @@ function draw(
         y: origin.y + Math.cos(angle) * length,
       }
       if (guides) {
-        circle(ctx, origin.x, origin.y, 2, "#72808a")
+        circle(ctx, origin.x, origin.y, 2, "#7e7e7e")
         line(
           ctx,
           { x: origin.x, y: 340 },
           { x: origin.x, y: 345 },
-          "#9aa7b2",
+          "#a5a5a5",
           0.8
         )
       }
-      line(ctx, origin, end, "#748696", 1)
-      circle(ctx, end.x, end.y, 8, `hsl(${202 + i * 1.6} 19% ${34 + i * 1.6}%)`)
+      line(ctx, origin, end, "#838383", 1)
+      circle(
+        ctx,
+        end.x,
+        end.y,
+        8,
+        i === 7 ? artAccents.red : `hsl(0 0% ${34 + i * 1.6}%)`
+      )
       circle(ctx, end.x - 2, end.y - 2, 2, "#ffffff66")
     }
   } else if (study.kind === "kaleidoscope") {
@@ -273,10 +280,17 @@ function draw(
         x = 300 + Math.cos(phase) * parameter * 0.6,
         y = 210 + Math.sin(phase) * parameter * 0.6
       for (let i = 1; i <= 28; i++)
-        circle(ctx, x, y, i * 5.4, undefined, layer ? "#9d6555" : "#594d48")
+        circle(
+          ctx,
+          x,
+          y,
+          i * 5.4,
+          undefined,
+          layer && i === 28 ? artAccents.teal : layer ? "#707070" : "#4f4f4f"
+        )
       if (guides) {
-        line(ctx, { x: x - 5, y }, { x: x + 5, y }, "#ad6349", 1)
-        line(ctx, { x, y: y - 5 }, { x, y: y + 5 }, "#ad6349", 1)
+        line(ctx, { x: x - 5, y }, { x: x + 5, y }, "#717171", 1)
+        line(ctx, { x, y: y - 5 }, { x, y: y + 5 }, "#717171", 1)
       }
     }
   }

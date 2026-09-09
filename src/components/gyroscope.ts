@@ -1,3 +1,4 @@
+import { artAccents } from "@/lib/art-palette"
 import type { Vector3 } from "@/lib/kinetic-math"
 
 // A kinematic gimbal study: prescribed precession and rotor spin, with every
@@ -86,7 +87,7 @@ export function drawGyroscope(
   }
   if (guides) {
     ctx.setLineDash([3, 5])
-    ctx.strokeStyle = "#8a9a9666"
+    ctx.strokeStyle = "#96969666"
     ctx.lineWidth = 0.7
     ctx.beginPath()
     ctx.moveTo(300, 43)
@@ -96,31 +97,31 @@ export function drawGyroscope(
     rod(
       inner({ x: 0, y: 0, z: -145 }),
       inner({ x: 0, y: 0, z: 145 }),
-      "#9ba7a080",
+      "#a4a4a480",
       0.8
     )
   }
-  ring(145, "xz", (p) => p, "#8a9990", 4)
-  ring(124, "xy", turn, "#526b63", 6)
-  ring(101, "xz", inner, "#7a8b76", 5)
+  ring(145, "xz", (p) => p, "#959595", 4)
+  ring(124, "xy", turn, "#656565", 6)
+  ring(101, "xz", inner, "#868686", 5)
   for (const sign of [-1, 1]) {
     rod(
       turn({ x: 124 * sign, y: 0, z: 0 }),
       turn({ x: 145 * sign, y: 0, z: 0 }),
-      "#65796d",
+      "#747474",
       6
     )
     rod(
       inner({ x: 101 * sign, y: 0, z: 0 }),
       inner({ x: 124 * sign, y: 0, z: 0 }),
-      "#65796d",
+      "#747474",
       6
     )
   }
   rod(
     inner({ x: 0, y: 0, z: -101 }),
     inner({ x: 0, y: 0, z: 101 }),
-    "#51665d",
+    "#616161",
     5
   )
   // Rotor annulus and its rotating spokes share the axle's local frame.
@@ -143,7 +144,7 @@ export function drawGyroscope(
           k ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)
         )
         ctx.closePath()
-        ctx.fillStyle = i % 16 < 3 ? "#d5b486" : "#aa8055"
+        ctx.fillStyle = i % 16 < 3 ? "#b8b8b8" : artAccents.gold
         ctx.fill()
         ctx.strokeStyle = ctx.fillStyle
         ctx.lineWidth = 0.6
@@ -156,15 +157,15 @@ export function drawGyroscope(
     rod(
       inner({ x: 12 * Math.cos(angle), y: 12 * Math.sin(angle), z: 0 }),
       inner({ x: 69 * Math.cos(angle), y: 69 * Math.sin(angle), z: 0 }),
-      "#ad895e",
+      artAccents.gold,
       3
     )
   }
-  ring(12, "xy", inner, "#94734c", 5)
+  ring(12, "xy", inner, "#777777", 5)
   items.sort((a, b) => a.depth - b.depth).forEach((item) => item.paint())
   if (guides) {
     ctx.font = "9px monospace"
-    ctx.fillStyle = "#7c8a7e"
+    ctx.fillStyle = "#868686"
     ctx.textAlign = "center"
     ctx.fillText("SPIN / TILT / PRECESSION", 300, 368)
     ctx.textAlign = "start"

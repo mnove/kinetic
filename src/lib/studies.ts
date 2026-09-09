@@ -5,7 +5,7 @@ export const studies = [
     title: "Articulated form",
     category: "Linkages",
     kind: "linkage",
-    color: "#e9ece3",
+    color: "#e8e8e8",
     subtitle: "One motion. Endless configurations.",
     description:
       "Eight pivots follow four circular paths. The connections between them fold, stretch, and unfold into an ever-changing geometry. Adapted from the original reference composition.",
@@ -21,7 +21,7 @@ export const studies = [
     title: "Endless ascent",
     category: "Illusions",
     kind: "stairs",
-    color: "#eee7dd",
+    color: "#e8e8e8",
     subtitle: "Always climbing. Never arriving.",
     description:
       "A small traveller traces an impossible staircase. Four flights appear to ascend into one another, turning a flat drawing into a quiet contradiction of space and perspective.",
@@ -37,7 +37,7 @@ export const studies = [
     title: "Pendulum wave",
     category: "Harmonics",
     kind: "pendulum",
-    color: "#e5eaf0",
+    color: "#e8e8e8",
     subtitle: "Order slips into rhythm.",
     description:
       "Fifteen pendulums swing at slightly different frequencies. Starting together, they drift into travelling waves and intricate patterns before finding their way back into alignment.",
@@ -53,7 +53,7 @@ export const studies = [
     title: "Interference",
     category: "Geometry",
     kind: "moire",
-    color: "#ede5e1",
+    color: "#e8e8e8",
     subtitle: "A pattern between patterns.",
     description:
       "Two families of concentric circles move around one another. Their overlapping lines create fleeting patterns that seem to breathe, ripple, and turn with a life of their own.",
@@ -69,7 +69,7 @@ export const studies = [
     title: "Three-body problem",
     category: "Orbits",
     kind: "threebody",
-    color: "#eae9de",
+    color: "#e8e8e8",
     subtitle: "Three bodies. One delicate balance.",
     description:
       "Three equal masses pull on one another, tracing the special figure-eight solution of the three-body problem. Their gravitational paths weave together in a repeating choreography. Adjust the trails to reveal the motion they leave behind.",
@@ -85,10 +85,10 @@ export const studies = [
     title: "Möbius strip",
     category: "Geometry",
     kind: "mobius",
-    color: "#eae5ed",
+    color: "#e8e8e8",
     subtitle: "Two sides become one.",
     description:
-      "A ribbon closes with a single half-twist, creating one continuous surface. Follow the golden marker: it takes two circuits to return to its starting point. Change the ribbon width and watch the rotating form reveal its geometry.",
+      "A ribbon closes with a single half-twist, creating one continuous surface. Follow the red marker: it takes two circuits to return to its starting point. Change the ribbon width and watch the rotating form reveal its geometry.",
     principle: "A continuous surface",
     parameter: "Ribbon width",
     min: 25,
@@ -101,7 +101,7 @@ export const studies = [
     title: "Gyroscope",
     category: "Mechanisms",
     kind: "gyroscope",
-    color: "#e3eae5",
+    color: "#e8e8e8",
     subtitle: "A quiet balance of turning worlds.",
     description:
       "A brass rotor spins inside nested gimbal rings. The assembly slowly turns about its vertical axis while the rotor keeps its selected tilt. Explore this choreographed model of spin and precession: change the tilt to reveal how the rings and axle fit together.",
@@ -117,7 +117,7 @@ export const studies = [
     title: "Rolling cube",
     category: "Geometry",
     kind: "rollingcube",
-    color: "#e8e9e3",
+    color: "#e8e8e8",
     subtitle: "One layer leads. The whole follows.",
     description:
       "A wireframe cube separates into square layers. Each rolls a quarter-turn over its lower edge, one after another, until the cube comes together on its next face. The view follows its progress as the sequence continues. Change the number of layers to reshape the rhythm.",
@@ -133,10 +133,10 @@ export const studies = [
     title: "Rolling wave",
     category: "Geometry",
     kind: "rollingwave",
-    color: "#050507",
+    color: "#050505",
     subtitle: "A wave with no beginning or end.",
     description:
-      "A ring of solid bars lifts and settles in sequence. A rolling crest travels continuously around the circle, revealing blue end caps beneath plum and copper faces. Change the number of bars to explore a denser or more open rhythm.",
+      "A ring of solid bars lifts and settles in sequence. A rolling crest travels continuously around the circle, revealing blue end caps against dark faces. Change the number of bars to explore a denser or more open rhythm.",
     principle: "Sequential rotation",
     parameter: "Bars",
     min: 18,
@@ -149,10 +149,10 @@ export const studies = [
     title: "Tesseract",
     category: "Geometry",
     kind: "tesseract",
-    color: "#e5e8f0",
+    color: "#e8e8e8",
     subtitle: "A glimpse beyond three dimensions.",
     description:
-      "Sixteen vertices and thirty-two edges rotate through four-dimensional space. A perspective projection turns the hypercube into shifting, nested forms. Copper edges connect its two cubic halves. Adjust the projection distance to change the apparent depth.",
+      "Sixteen vertices and thirty-two edges rotate through four-dimensional space. A perspective projection turns the hypercube into shifting, nested forms. Blue edges connect its two cubic halves. Adjust the projection distance to change the apparent depth.",
     principle: "Four-dimensional rotation",
     parameter: "Projection distance",
     min: 4,
@@ -165,7 +165,7 @@ export const studies = [
     title: "Impossible triangle",
     category: "Illusions",
     kind: "triangle",
-    color: "#e9eadf",
+    color: "#e8e8e8",
     subtitle: "Perspective holds it together.",
     description:
       "Three beams appear to meet in an impossible triangle. As the assembly turns, gaps reveal the construction behind the illusion; the frontal view brings it together again. Adjust the reveal angle to look further around the form.",
@@ -181,7 +181,7 @@ export const studies = [
     title: "Spirograph",
     category: "Harmonics",
     kind: "spirograph",
-    color: "#e8ece1",
+    color: "#e8e8e8",
     subtitle: "Circles drawing something new.",
     description:
       "A small circle rolls inside a larger one, carrying a pen that traces a five-fold looping curve. Move the pen away from the rolling circle’s center to transform gentle lobes into intersecting loops. Construction guides reveal the mechanism.",
@@ -197,7 +197,7 @@ export const studies = [
     title: "Epicycles",
     category: "Harmonics",
     kind: "epicycles",
-    color: "#eae6ee",
+    color: "#e8e8e8",
     subtitle: "Small circles. A larger picture.",
     description:
       "A chain of rotating arms adds circular motions at different frequencies. Its tip traces the resulting Fourier curve. Add more harmonics to introduce finer loops, or hide the guide circles to follow the drawing alone.",
@@ -213,7 +213,7 @@ export const studies = [
     title: "Chladni patterns",
     category: "Harmonics",
     kind: "chladni",
-    color: "#e9ebdf",
+    color: "#e8e8e8",
     subtitle: "Stillness, shaped by vibration.",
     description:
       "Grains gather along the quiet nodal lines of an idealized square-plate vibration pattern. This mathematical illustration follows the field toward zero, then redistributes the grains to repeat. Select a plate mode to discover a different symmetry.",
@@ -229,7 +229,7 @@ export const studies = [
     title: "Kaleidoscope",
     category: "Geometry",
     kind: "kaleidoscope",
-    color: "#ece5e9",
+    color: "#e8e8e8",
     subtitle: "One fragment. Infinite reflections.",
     description:
       "Drifting pieces of color reflect across a circle of mirrors. Each neighbouring sector reverses the same moving shapes, creating an ever-changing radial pattern. Adjust the mirror pairs to change its symmetry.",
@@ -245,10 +245,10 @@ export const studies = [
     title: "Rolling polygons",
     category: "Mechanisms",
     kind: "polygons",
-    color: "#e5ebe0",
+    color: "#e8e8e8",
     subtitle: "Every edge takes its turn.",
     description:
-      "A regular polygon tips over each leading corner and lands on its next edge. The view follows its forward travel while a copper vertex traces the motion. Change the number of sides to see a triangle’s pronounced tumble become a gentler roll.",
+      "A regular polygon tips over each leading corner and lands on its next edge. The view follows its forward travel while a yellow-lime vertex traces the motion. Change the number of sides to see a triangle’s pronounced tumble become a gentler roll.",
     principle: "Edge-by-edge motion",
     parameter: "Sides",
     min: 3,
