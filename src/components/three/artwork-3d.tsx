@@ -1,6 +1,7 @@
 import { Component, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Group, OrthographicCamera } from "three"
+import { OrthographicCamera } from "three"
+import type { Group } from "three"
 import { createStudyScene } from "./scenes"
 import type { Scene, SpatialKind } from "./scenes"
 import type { ReactNode } from "react"

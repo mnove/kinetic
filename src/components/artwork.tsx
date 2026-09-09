@@ -9,6 +9,8 @@ import {
   drawImpossibleTriangle,
   drawSpirograph,
 } from "./geometric-studies"
+import { drawEpicycles, drawChladni } from "./harmonic-studies"
+import { drawKaleidoscope, drawRollingPolygons } from "./pattern-studies"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -241,6 +243,14 @@ function draw(
       circle(ctx, end.x, end.y, 8, `hsl(${202 + i * 1.6} 19% ${34 + i * 1.6}%)`)
       circle(ctx, end.x - 2, end.y - 2, 2, "#ffffff66")
     }
+  } else if (study.kind === "kaleidoscope") {
+    drawKaleidoscope(ctx, t, parameter, guides)
+  } else if (study.kind === "polygons") {
+    drawRollingPolygons(ctx, t, parameter, guides)
+  } else if (study.kind === "epicycles") {
+    drawEpicycles(ctx, t, parameter, guides)
+  } else if (study.kind === "chladni") {
+    drawChladni(ctx, t, parameter, guides)
   } else if (study.kind === "tesseract") {
     drawTesseract(ctx, t, parameter, guides)
   } else if (study.kind === "triangle") {

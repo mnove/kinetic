@@ -350,7 +350,7 @@ export function createStudyScene(
     }
     if (guides)
       lines(group, [-170, 0, 0, 170, 0, 0, 0, -150, 0, 0, 150, 0], "#a7ae9c")
-  } else if (kind === "triangle") {
+  } else {
     const outer = [
         [0, 125],
         [125, -91],
