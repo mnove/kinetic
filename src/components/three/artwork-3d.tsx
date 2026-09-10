@@ -1,4 +1,11 @@
-import { Component, useEffect, useLayoutEffect, useRef, useState } from "react"
+import {
+  Component,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { OrthographicCamera } from "three"
 import type { Group } from "three"
@@ -77,17 +84,33 @@ function StudyScene({
   })
   return <group ref={parent} />
 }
-function ContextWatch({ onLost }: { onLost: () => void }) {
-  const { gl } = useThree()
+function ContextWatch({
+  onLost,
+  onRestored,
+}: {
+  onLost: () => void
+  onRestored: () => void
+}) {
+  const { gl, invalidate } = useThree()
   useEffect(() => {
     const canvas = gl.domElement
+    // preventDefault asks the browser to restore the context, so pair it with a
+    // restore listener; otherwise a transient loss retires the canvas forever.
     const lost = (event: Event) => {
       event.preventDefault()
       onLost()
     }
+    const restored = () => {
+      onRestored()
+      invalidate()
+    }
     canvas.addEventListener("webglcontextlost", lost)
-    return () => canvas.removeEventListener("webglcontextlost", lost)
-  }, [gl, onLost])
+    canvas.addEventListener("webglcontextrestored", restored)
+    return () => {
+      canvas.removeEventListener("webglcontextlost", lost)
+      canvas.removeEventListener("webglcontextrestored", restored)
+    }
+  }, [gl, invalidate, onLost, onRestored])
   return null
 }
 export default function Artwork3D({
@@ -104,6 +127,8 @@ export default function Artwork3D({
   const [visible, setVisible] = useState(false)
   const [reduced, setReduced] = useState(true)
   const [lost, setLost] = useState(false)
+  const markLost = useCallback(() => setLost(true), [])
+  const markRestored = useCallback(() => setLost(false), [])
   useLayoutEffect(() => {
     time.current = 0
   }, [reset])
@@ -122,7 +147,6 @@ export default function Artwork3D({
       observer.disconnect()
     }
   }, [])
-  if (lost) return fallback
   return (
     <RendererBoundary fallback={fallback}>
       <div
@@ -131,6 +155,10 @@ export default function Artwork3D({
         role="img"
         aria-label={`${study.title}: ${study.subtitle}`}
       >
+        {/* While lost, show the 2D fallback but keep the Canvas mounted and
+            hidden: unmounting it would destroy the context that is due to fire
+            webglcontextrestored. */}
+        {lost && fallback}
         {visible && (
           <Canvas
             orthographic
@@ -139,8 +167,9 @@ export default function Artwork3D({
             frameloop={playing && !reduced ? "always" : "demand"}
             gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
             fallback={fallback}
+            style={lost ? { display: "none" } : undefined}
           >
-            <ContextWatch onLost={() => setLost(true)} />
+            <ContextWatch onLost={markLost} onRestored={markRestored} />
             <ambientLight intensity={1.4} />
             <directionalLight position={[-3, 5, 6]} intensity={2.2} />
             <directionalLight position={[4, -2, 2]} intensity={0.6} />

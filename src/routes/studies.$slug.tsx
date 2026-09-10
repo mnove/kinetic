@@ -62,6 +62,7 @@ function StudyPage({ study }: { study: Study }) {
               <span>INTERACTIVE STUDY</span>
             </div>
             <Artwork
+              spatial
               study={study}
               playing={playing}
               speed={speed}

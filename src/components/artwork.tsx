@@ -377,11 +377,18 @@ const spatialKinds = new Set([
   "tesseract",
   "triangle",
 ])
-export function Artwork(props: ComponentProps<typeof CanvasArtwork>) {
+export function Artwork({
+  spatial = false,
+  ...props
+}: ComponentProps<typeof CanvasArtwork> & { spatial?: boolean }) {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   const fallback = <CanvasArtwork {...props} />
-  if (!mounted || !spatialKinds.has(props.study.kind)) return fallback
+  // WebGL is opt-in per call site: each Artwork3D owns a WebGLRenderer, and
+  // browsers evict the oldest context past a low cap. Only routes that render
+  // a single artwork should ask for it.
+  if (!spatial || !mounted || !spatialKinds.has(props.study.kind))
+    return fallback
   return (
     <Suspense fallback={fallback}>
       <Artwork3D {...props} fallback={fallback} />
