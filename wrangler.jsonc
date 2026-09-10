@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kinetic-art",
+  "compatibility_date": "2026-09-10",
+  // Assets-only: no "main" field, so no Worker script runs and no invocations
+  // are billed. Every route is prerendered to HTML at build time.
+  "assets": {
+    "directory": "./dist/client/",
+    // Workers requires this to be explicit. The site is prerendered per-route
+    // (not a SPA), so unmatched paths should serve the 404 page rather than
+    // rewriting to index.html.
+    "not_found_handling": "404-page",
+    // Serve /studies/<slug> directly from its index.html instead of issuing a
+    // 307 to the trailing-slash URL, which would cost every page an extra
+    // round-trip and leave canonical URLs inconsistent with the site's links.
+    "html_handling": "drop-trailing-slash",
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+}
