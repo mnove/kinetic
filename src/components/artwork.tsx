@@ -14,6 +14,7 @@ import { drawEpicycles, drawChladni } from "./harmonic-studies"
 import { drawKaleidoscope, drawRollingPolygons } from "./pattern-studies"
 import { drawIris, drawTrammel } from "./mechanism-studies"
 import { drawPhyllotaxis, drawArticulatedHexagon } from "./growth-studies"
+import { createNewStudyRenderer, drawGeneva } from "./new-studies"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -68,11 +69,20 @@ function draw(
   study: Study,
   t: number,
   parameter: number,
-  guides: boolean
+  guides: boolean,
+  extra: ReturnType<typeof createNewStudyRenderer>
 ) {
   ctx.clearRect(0, 0, 600, 420)
   ctx.lineCap = "round"
-  if (study.kind === "linkage") {
+  if (study.kind === "geneva") {
+    drawGeneva(ctx, t, parameter, guides)
+  } else if (study.kind === "miura") {
+    extra.drawMiura(ctx, t, parameter, guides)
+  } else if (study.kind === "branching") {
+    extra.drawBranches(ctx, t, parameter, guides)
+  } else if (study.kind === "flock") {
+    extra.drawFlock(ctx, t, parameter, guides)
+  } else if (study.kind === "linkage") {
     const centers = [
       { x: 208, y: 118 },
       { x: 392, y: 118 },
@@ -333,6 +343,7 @@ function CanvasArtwork({
     const canvas = ref.current,
       ctx = canvas?.getContext("2d")
     if (!canvas || !ctx) return
+    const extra = createNewStudyRenderer()
     let frame = 0,
       last = 0,
       visible = true
@@ -354,7 +365,7 @@ function CanvasArtwork({
       const s = settings.current
       if (visible) {
         if (s.playing && !motion.matches) time.current += delta * s.speed
-        draw(ctx, study, time.current, s.parameter, s.guides)
+        draw(ctx, study, time.current, s.parameter, s.guides, extra)
       }
       frame = requestAnimationFrame(tick)
     }
@@ -386,6 +397,7 @@ const spatialKinds = new Set([
   "rollingcube",
   "tesseract",
   "triangle",
+  "miura",
 ])
 export function Artwork({
   spatial = false,

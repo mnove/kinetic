@@ -3,6 +3,7 @@ import * as THREE from "three"
 import { mobiusPoint } from "@/lib/kinetic-math"
 import { rollingCube } from "@/lib/rolling-cube"
 import { tesseractEdges, tesseractVertices } from "@/lib/geometric-studies"
+import { miuraColumns, miuraRows, updateMiura } from "@/lib/new-studies"
 
 export const spatialKinds = [
   "mobius",
@@ -11,6 +12,7 @@ export const spatialKinds = [
   "rollingcube",
   "tesseract",
   "triangle",
+  "miura",
 ] as const
 export type SpatialKind = (typeof spatialKinds)[number]
 export type Scene = {
@@ -108,7 +110,63 @@ export function createStudyScene(
   const group = new THREE.Group()
   root.add(group)
   let update: (time: number) => void = () => {}
-  if (kind === "mobius") {
+  if (kind === "miura") {
+    group.rotation.set(-0.8, 0.18, -0.12)
+    const points = new Float32Array((miuraColumns + 1) * (miuraRows + 1) * 3)
+    const panels = new Float32Array(miuraColumns * miuraRows * 18)
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute("position", new THREE.BufferAttribute(panels, 3))
+    mesh(group, geometry, "#b8c9d2")
+    const edgePoints = new Float32Array(
+      (miuraColumns * (miuraRows + 1) + miuraRows * (miuraColumns + 1)) * 6
+    )
+    const edgeGeometry = new THREE.BufferGeometry()
+    edgeGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(edgePoints, 3)
+    )
+    const edges = new THREE.LineSegments(
+      edgeGeometry,
+      new THREE.LineBasicMaterial({ color: artAccents.blue })
+    )
+    edges.visible = guides
+    group.add(edges)
+    update = (time) => {
+      updateMiura(points, time, parameter)
+      let p = 0,
+        e = 0
+      for (let j = 0; j < miuraRows; j++)
+        for (let i = 0; i < miuraColumns; i++) {
+          const a = j * (miuraColumns + 1) + i,
+            b = a + 1,
+            c = b + miuraColumns + 1,
+            d = c - 1
+          for (let n = 0; n < 6; n++) {
+            const vertex =
+              n === 0 || n === 3 ? a : n === 1 ? b : n === 5 ? d : c
+            for (let axis = 0; axis < 3; axis++)
+              panels[p++] = points[vertex * 3 + axis]
+          }
+        }
+      for (let j = 0; j <= miuraRows; j++)
+        for (let i = 0; i <= miuraColumns; i++) {
+          const a = j * (miuraColumns + 1) + i
+          for (let direction = 0; direction < 2; direction++) {
+            if (direction === 0 ? i === miuraColumns : j === miuraRows) continue
+            const b = a + (direction === 0 ? 1 : miuraColumns + 1)
+            for (let axis = 0; axis < 3; axis++)
+              edgePoints[e++] = points[a * 3 + axis]
+            for (let axis = 0; axis < 3; axis++)
+              edgePoints[e++] = points[b * 3 + axis]
+          }
+        }
+      geometry.attributes.position.needsUpdate = true
+      geometry.computeVertexNormals()
+      geometry.computeBoundingSphere()
+      edgeGeometry.attributes.position.needsUpdate = true
+      edgeGeometry.computeBoundingSphere()
+    }
+  } else if (kind === "mobius") {
     group.rotation.x = 1
     const geometry = new THREE.BufferGeometry(),
       positions: number[] = [],
