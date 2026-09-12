@@ -12,6 +12,8 @@ import {
 } from "./geometric-studies"
 import { drawEpicycles, drawChladni } from "./harmonic-studies"
 import { drawKaleidoscope, drawRollingPolygons } from "./pattern-studies"
+import { drawIris, drawTrammel } from "./mechanism-studies"
+import { drawPhyllotaxis, drawArticulatedHexagon } from "./growth-studies"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -250,6 +252,14 @@ function draw(
       )
       circle(ctx, end.x - 2, end.y - 2, 2, "#ffffff66")
     }
+  } else if (study.kind === "phyllotaxis") {
+    drawPhyllotaxis(ctx, t, parameter, guides)
+  } else if (study.kind === "hexagon") {
+    drawArticulatedHexagon(ctx, t, parameter, guides)
+  } else if (study.kind === "iris") {
+    drawIris(ctx, t, parameter, guides)
+  } else if (study.kind === "trammel") {
+    drawTrammel(ctx, t, parameter, guides)
   } else if (study.kind === "kaleidoscope") {
     drawKaleidoscope(ctx, t, parameter, guides)
   } else if (study.kind === "polygons") {
