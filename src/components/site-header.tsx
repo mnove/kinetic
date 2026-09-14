@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Star } from "lucide-react"
+import { GitHubIcon } from "@/components/github-icon"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Badge } from "@/components/ui/badge"
+import { buttonVariants } from "@/components/ui/button"
 import { studies } from "@/lib/studies"
 
 export function SiteHeader() {
@@ -26,11 +28,24 @@ export function SiteHeader() {
           <a href="/#about">
             About <ArrowUpRight size={13} />
           </a>
+          <a
+            href="https://github.com/mnove/kinetic"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Star on GitHub <Star size={13} />
+          </a>
         </nav>
         <div className="header-actions">
-          <span className="header-note">
-            <span className="live-dot" /> Studies in motion
-          </span>
+          <a
+            href="https://github.com/mnove/kinetic"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Kinetic on GitHub"
+            className={buttonVariants({ variant: "outline", size: "icon-sm" })}
+          >
+            <GitHubIcon />
+          </a>
           <ModeToggle />
         </div>
       </div>
