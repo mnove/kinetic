@@ -37,6 +37,13 @@ function Gallery() {
               <a href="#collection">
                 Explore the collection <ArrowDown size={15} />
               </a>
+              <a
+                href="https://github.com/mnove/kinetic"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open source on GitHub <ArrowUpRight size={15} />
+              </a>
             </div>
           </div>
           <div className="intro-bottom">
@@ -139,18 +146,55 @@ function Gallery() {
               happens when they meet.
             </p>
             <p>Open a study. Change the rhythm. Stay for a while.</p>
+            <p>
+              Kinetic is open source, created by{" "}
+              <a
+                href="https://github.com/mnove"
+                target="_blank"
+                rel="noreferrer"
+              >
+                mnove
+              </a>
+              . Read the code, fork it, or contribute a study.
+            </p>
             <a href="#collection">
               Explore the collection <ArrowUpRight size={16} />
+            </a>
+            <a
+              href="https://github.com/mnove/kinetic"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View the source on GitHub <ArrowUpRight size={16} />
             </a>
           </div>
         </section>
       </main>
       <footer>
-        <Link to="/" className="footer-brand">
-          kinetic.
+        <Link to="/" className="footer-brand" aria-label="Kinetic home">
+          <span className="brand-mark">
+            <i />
+            <i />
+            <i />
+          </span>
+          kinetic<span className="brand-period">.</span>
         </Link>
-        <span>Built with curiosity. Set in motion.</span>
-        <span>© 2026</span>
+        <span className="site-note">
+          <span className="live-dot" /> Studies in motion
+        </span>
+        <span>
+          <a
+            href="https://github.com/mnove/kinetic"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open source
+          </a>{" "}
+          <span className="separator">/</span> © 2026{" "}
+          <a href="https://github.com/mnove" target="_blank" rel="noreferrer">
+            mnove
+          </a>
+        </span>
       </footer>
     </>
   )

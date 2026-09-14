@@ -56,4 +56,6 @@ Output lands in `dist/client/` and deploys to Cloudflare Workers as static asset
 
 ## Contributing
 
+Kinetic is open source — the code lives at [github.com/mnove/kinetic](https://github.com/mnove/kinetic), created by [mnove](https://github.com/mnove).
+
 Adding a study, adjusting the math, or fixing a rendering bug — see [CONTRIBUTING.md](CONTRIBUTING.md).

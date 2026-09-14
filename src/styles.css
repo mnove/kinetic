@@ -220,7 +220,7 @@ a:focus-visible {
   justify-self: end;
   gap: 18px;
 }
-.header-note {
+.site-note {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -284,6 +284,13 @@ a:focus-visible {
   gap: 18px;
   font-size: 11px;
   margin-top: 16px;
+}
+.intro-aside a + a {
+  margin-top: 8px;
+  color: var(--muted-foreground);
+}
+.intro-aside a + a:hover {
+  color: var(--foreground);
 }
 .intro-bottom {
   display: flex;
@@ -509,6 +516,17 @@ a:focus-visible {
   font-size: 11px;
   margin-top: 20px;
 }
+.about a + a {
+  margin-top: 10px;
+}
+.about p a {
+  display: inline;
+  font-size: inherit;
+  margin-top: 0;
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 footer {
   display: flex;
   justify-content: space-between;
@@ -521,10 +539,15 @@ footer {
   font-size: 9px;
 }
 .footer-brand {
+  display: inline-flex;
+  align-items: center;
   font-size: 21px;
   font-weight: 600;
   color: var(--foreground);
   letter-spacing: -0.8px;
+}
+footer a:not(.footer-brand):hover {
+  color: var(--foreground);
 }
 .detail {
   padding-top: 24px;
@@ -691,9 +714,6 @@ footer {
   display: block;
 }
 @media (max-width: 1100px) {
-  .header-note {
-    display: none;
-  }
   .study-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -739,7 +759,7 @@ footer {
     gap: 14px;
     font-size: 10px;
   }
-  .site-header nav a:last-child {
+  .site-header nav a:not(:first-child) {
     display: none;
   }
   .intro {
