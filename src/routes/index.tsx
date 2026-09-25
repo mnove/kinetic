@@ -5,6 +5,13 @@ import { Artwork } from "@/components/artwork"
 import { SiteHeader } from "@/components/site-header"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { studies } from "@/lib/studies"
 
@@ -12,6 +19,10 @@ export const Route = createFileRoute("/")({ component: Gallery })
 function Gallery() {
   const [filter, setFilter] = useState("All studies")
   const [playing, setPlaying] = useState(true)
+  const filters = [
+    "All studies",
+    ...new Set(studies.map((study) => study.category)),
+  ]
   const shown = studies.filter(
     (s) => filter === "All studies" || s.category === filter
   )
@@ -21,18 +32,20 @@ function Gallery() {
       <main className="gallery" id="main-content">
         <section className="intro">
           <div className="eyebrow">
-            <span className="tiny-cross">+</span> A COLLECTION OF MOTION STUDIES
+            <span className="tiny-cross">+</span> INTERACTIVE KINETIC ART, IN
+            THE BROWSER
           </div>
           <div className="intro-row">
             <h1>
-              Simple rules.
+              Mathematics,
               <br />
-              <span>Infinite motion.</span>
+              <span>set in motion.</span>
             </h1>
             <div className="intro-aside">
               <p>
-                Experiments in geometry, rhythm, and perception.
-                <br />A small playground for things that never stand still.
+                Pendulum waves, Möbius strips, Chladni patterns and more, each
+                one a few lines of math animated live.
+                <br />A personal side project, made just for fun.
               </p>
               <a href="#collection">
                 Explore the collection <ArrowDown size={15} />
@@ -46,12 +59,6 @@ function Gallery() {
               </a>
             </div>
           </div>
-          <div className="intro-bottom">
-            <span>GEOMETRY / RHYTHM / PERCEPTION</span>
-            <span>
-              EST. 2026 <span className="separator">/</span> VOL. 001
-            </span>
-          </div>
         </section>
         <section id="collection" className="collection">
           <div className="collection-toolbar">
@@ -63,10 +70,7 @@ function Gallery() {
                 if (values.length) setFilter(values[0])
               }}
             >
-              {[
-                "All studies",
-                ...new Set(studies.map((study) => study.category)),
-              ].map((f) => (
+              {filters.map((f) => (
                 <ToggleGroupItem key={f} value={f} className="filter">
                   {f}
                   {f === "All studies" && (
@@ -75,6 +79,27 @@ function Gallery() {
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
+            <Select
+              value={filter}
+              onValueChange={(value) => {
+                if (value) setFilter(value)
+              }}
+            >
+              <SelectTrigger
+                size="sm"
+                className="filter-select"
+                aria-label="Filter studies"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {filters.map((f) => (
+                  <SelectItem key={f} value={f}>
+                    {f}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Button
               variant="ghost"
               size="sm"
