@@ -15,6 +15,7 @@ import { drawKaleidoscope, drawRollingPolygons } from "./pattern-studies"
 import { drawIris, drawTrammel } from "./mechanism-studies"
 import { drawPhyllotaxis, drawArticulatedHexagon } from "./growth-studies"
 import { createNewStudyRenderer, drawGeneva } from "./new-studies"
+import { createGravityWellRenderer } from "./gravity-well"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -70,7 +71,8 @@ function draw(
   t: number,
   parameter: number,
   guides: boolean,
-  extra: ReturnType<typeof createNewStudyRenderer>
+  extra: ReturnType<typeof createNewStudyRenderer> &
+    ReturnType<typeof createGravityWellRenderer>
 ) {
   ctx.clearRect(0, 0, 600, 420)
   ctx.lineCap = "round"
@@ -82,6 +84,8 @@ function draw(
     extra.drawBranches(ctx, t, parameter, guides)
   } else if (study.kind === "flock") {
     extra.drawFlock(ctx, t, parameter, guides)
+  } else if (study.kind === "gravity") {
+    extra.drawGravityWell(ctx, t, parameter, guides)
   } else if (study.kind === "linkage") {
     const centers = [
       { x: 208, y: 118 },
@@ -343,7 +347,10 @@ function CanvasArtwork({
     const canvas = ref.current,
       ctx = canvas?.getContext("2d")
     if (!canvas || !ctx) return
-    const extra = createNewStudyRenderer()
+    const extra = {
+      ...createNewStudyRenderer(),
+      ...createGravityWellRenderer(),
+    }
     let frame = 0,
       last = 0,
       visible = true
@@ -398,6 +405,7 @@ const spatialKinds = new Set([
   "tesseract",
   "triangle",
   "miura",
+  "gravity",
 ])
 export function Artwork({
   spatial = false,

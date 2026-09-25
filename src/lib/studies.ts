@@ -383,5 +383,21 @@ export const studies = [
     max: 100,
     initial: 55,
   },
+  {
+    slug: "gravity-well",
+    number: "25",
+    title: "Gravity well",
+    category: "Orbits",
+    kind: "gravity",
+    color: "#e8e8e8",
+    subtitle: "Always falling. Never landing.",
+    description:
+      "Three bodies coast across a surface shaped by a single central mass, each ignoring the others. The mass is softened at its core, so no path closes into a perfect ellipse: every orbit turns a little each time it swings back, tracing a slow rosette. Increase the mass to deepen the well and send the same starting paths into tighter, faster plunges. Guides mark one orbit’s nearest and farthest reach and its heading.",
+    principle: "Apsidal precession",
+    parameter: "Central mass",
+    min: 40,
+    max: 100,
+    initial: 70,
+  },
 ] as const
 export type Study = (typeof studies)[number]
