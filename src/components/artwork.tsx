@@ -16,6 +16,7 @@ import { drawIris, drawTrammel } from "./mechanism-studies"
 import { drawPhyllotaxis, drawArticulatedHexagon } from "./growth-studies"
 import { createNewStudyRenderer, drawGeneva } from "./new-studies"
 import { createGravityWellRenderer } from "./gravity-well"
+import { createPrismRenderer } from "./prism"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -72,7 +73,8 @@ function draw(
   parameter: number,
   guides: boolean,
   extra: ReturnType<typeof createNewStudyRenderer> &
-    ReturnType<typeof createGravityWellRenderer>
+    ReturnType<typeof createGravityWellRenderer> &
+    ReturnType<typeof createPrismRenderer>
 ) {
   ctx.clearRect(0, 0, 600, 420)
   ctx.lineCap = "round"
@@ -86,6 +88,8 @@ function draw(
     extra.drawFlock(ctx, t, parameter, guides)
   } else if (study.kind === "gravity") {
     extra.drawGravityWell(ctx, t, parameter, guides)
+  } else if (study.kind === "prism") {
+    extra.drawPrism(ctx, t, parameter, guides)
   } else if (study.kind === "linkage") {
     const centers = [
       { x: 208, y: 118 },
@@ -350,6 +354,7 @@ function CanvasArtwork({
     const extra = {
       ...createNewStudyRenderer(),
       ...createGravityWellRenderer(),
+      ...createPrismRenderer(),
     }
     let frame = 0,
       last = 0,
