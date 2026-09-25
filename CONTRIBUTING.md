@@ -26,7 +26,7 @@ pnpm typecheck && pnpm test && pnpm build
 
 ## Performance
 
-Animations run continuously, and the collection contains twenty-four studies. Two rules keep that affordable:
+Animations run continuously, and the collection contains twenty-six studies. Two rules keep that affordable:
 
 - **Allocate nothing per frame.** No arrays or objects built inside a draw call.
 - **Respect the guards already in place.** Off-screen studies pause via `IntersectionObserver`, and everything freezes under `prefers-reduced-motion`. New rendering paths should honour both.

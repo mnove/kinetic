@@ -383,5 +383,37 @@ export const studies = [
     max: 100,
     initial: 55,
   },
+  {
+    slug: "gravity-well",
+    number: "25",
+    title: "Gravity well",
+    category: "Orbits",
+    kind: "gravity",
+    color: "#e8e8e8",
+    subtitle: "Always falling. Never landing.",
+    description:
+      "Three bodies coast across a surface shaped by a single central mass, each ignoring the others. The mass is softened at its core, so no path closes into a perfect ellipse: every orbit turns a little each time it swings back, tracing a slow rosette. Increase the mass to deepen the well and send the same starting paths into tighter, faster plunges. Guides mark one orbit’s nearest and farthest reach and its heading.",
+    principle: "Apsidal precession",
+    parameter: "Central mass",
+    min: 40,
+    max: 100,
+    initial: 70,
+  },
+  {
+    slug: "prism",
+    number: "26",
+    title: "Prism",
+    category: "Optics",
+    kind: "prism",
+    color: "#e8e8e8",
+    subtitle: "One beam in. Every colour out.",
+    description:
+      "A beam of white light bends as it enters a glass prism and bends again as it leaves. Glass slows violet light more than red, so each wavelength turns by a slightly different angle and the beam fans into a spectrum on the screen. A lamp swings below and to the left of the prism, changing where and how steeply the beam strikes it, and the spectrum climbs and falls on the screen as the angle passes through least deviation. Widen the apex angle to spread the colours further, until at the steepest angles the most strongly bent light is trapped by total internal reflection. Guides draw the surface normals and the laws behind each turn.",
+    principle: "Refraction and dispersion",
+    parameter: "Apex angle (°)",
+    min: 30,
+    max: 65,
+    initial: 55,
+  },
 ] as const
 export type Study = (typeof studies)[number]

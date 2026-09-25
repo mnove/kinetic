@@ -4,6 +4,12 @@ import { mobiusPoint } from "@/lib/kinetic-math"
 import { rollingCube } from "@/lib/rolling-cube"
 import { tesseractEdges, tesseractVertices } from "@/lib/geometric-studies"
 import { miuraColumns, miuraRows, updateMiura } from "@/lib/new-studies"
+import {
+  createWell,
+  wellBodies,
+  wellDepth,
+  wellRadius,
+} from "@/lib/gravity-well"
 
 export const spatialKinds = [
   "mobius",
@@ -13,6 +19,7 @@ export const spatialKinds = [
   "tesseract",
   "triangle",
   "miura",
+  "gravity",
 ] as const
 export type SpatialKind = (typeof spatialKinds)[number]
 export type Scene = {
@@ -110,7 +117,122 @@ export function createStudyScene(
   const group = new THREE.Group()
   root.add(group)
   let update: (time: number) => void = () => {}
-  if (kind === "miura") {
+  if (kind === "gravity") {
+    group.rotation.x = 0.8
+    group.position.y = 15
+    const well = createWell()
+    well.prepare(parameter)
+    const rings = 24,
+      spokes = 48
+    const surface: number[] = [],
+      indices: number[] = [],
+      grid: number[] = []
+    const vertex = (r: number, a: number) => [
+      r * Math.cos(a),
+      -wellDepth(r, parameter),
+      r * Math.sin(a),
+    ]
+    for (let j = 0; j <= rings; j++)
+      for (let i = 0; i <= spokes; i++)
+        surface.push(
+          ...vertex(wellRadius * (j / rings) ** 1.6, (i / spokes) * Math.PI * 2)
+        )
+    for (let j = 0; j < rings; j++)
+      for (let i = 0; i < spokes; i++) {
+        const a = j * (spokes + 1) + i,
+          b = a + spokes + 1
+        indices.push(a, b, a + 1, b, b + 1, a + 1)
+      }
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(surface, 3)
+    )
+    geometry.setIndex(indices)
+    geometry.computeVertexNormals()
+    const sheet = mesh(group, geometry, "#d2d2d2")
+    // Pushed back so the grid drawn on the same surface never z-fights it.
+    Object.assign(sheet.material, {
+      polygonOffset: true,
+      polygonOffsetFactor: 1,
+      polygonOffsetUnits: 1,
+    })
+    for (let k = 1; k <= 10; k++)
+      for (let i = 0; i < 72; i++)
+        grid.push(
+          ...vertex((k / 10) * wellRadius, (i / 72) * Math.PI * 2),
+          ...vertex((k / 10) * wellRadius, ((i + 1) / 72) * Math.PI * 2)
+        )
+    for (let k = 0; k < 24; k++)
+      for (let i = 0; i < 32; i++)
+        grid.push(
+          ...vertex(wellRadius * (i / 32) ** 1.6, (k / 24) * Math.PI * 2),
+          ...vertex(wellRadius * ((i + 1) / 32) ** 1.6, (k / 24) * Math.PI * 2)
+        )
+    lines(group, grid, "#8f8f8f")
+    const core = mesh(
+      group,
+      new THREE.SphereGeometry(4 + parameter * 0.07, 20, 14),
+      "#4d4d4d"
+    )
+    core.position.y = -wellDepth(0, parameter) + 4 + parameter * 0.07
+    if (guides) {
+      const orbitRings: number[] = []
+      for (const r of [wellBodies[0].radius, well.periapses[0]])
+        for (let i = 0; i < 72; i++)
+          orbitRings.push(
+            ...vertex(r, (i / 72) * Math.PI * 2),
+            ...vertex(r, ((i + 1) / 72) * Math.PI * 2)
+          )
+      lines(group, orbitRings, artAccents.gold)
+      lines(group, [0, 30, 0, 0, -wellDepth(0, parameter), 0], "#a9a9a9")
+    }
+    const colors = [artAccents.gold, artAccents.blue, artAccents.violet],
+      trail = 110,
+      point = { x: 0, y: 0, r: 0 }
+    const bodies = wellBodies.map((_, body) => {
+      const sphere = mesh(
+        group,
+        new THREE.SphereGeometry(6, 16, 12),
+        colors[body]
+      )
+      const positions = new Float32Array(trail * 6)
+      const path = new THREE.BufferGeometry()
+      path.setAttribute("position", new THREE.BufferAttribute(positions, 3))
+      group.add(
+        new THREE.LineSegments(
+          path,
+          new THREE.LineBasicMaterial({ color: colors[body] })
+        )
+      )
+      return { sphere, path, positions }
+    })
+    update = (time) => {
+      bodies.forEach(({ sphere, path, positions }, body) => {
+        for (let i = 0; i <= trail; i++) {
+          well.sample(body, time - (trail - i) * 0.03, point)
+          const y = -wellDepth(point.r, parameter) + 1
+          // Each sample ends one segment and starts the next.
+          for (
+            let k = Math.max(0, i * 2 - 1);
+            k <= Math.min(i * 2, trail * 2 - 1);
+            k++
+          ) {
+            positions[k * 3] = point.x
+            positions[k * 3 + 1] = y
+            positions[k * 3 + 2] = point.y
+          }
+        }
+        sphere.position.set(
+          point.x,
+          -wellDepth(point.r, parameter) + 6,
+          point.y
+        )
+        path.attributes.position.needsUpdate = true
+        path.computeBoundingSphere()
+      })
+    }
+  } else if (kind === "miura") {
     group.rotation.set(-0.8, 0.18, -0.12)
     const points = new Float32Array((miuraColumns + 1) * (miuraRows + 1) * 3)
     const panels = new Float32Array(miuraColumns * miuraRows * 18)

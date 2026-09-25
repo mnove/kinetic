@@ -11,6 +11,7 @@ it("builds finite, depth-tested geometry at parameter extremes and disposes it",
     tesseract: [4, 10],
     triangle: [20, 75],
     miura: [10, 60],
+    gravity: [40, 100],
   }
   for (const kind of spatialKinds)
     for (const parameter of ranges[kind]) {
