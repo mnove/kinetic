@@ -17,6 +17,7 @@ import { drawPhyllotaxis, drawArticulatedHexagon } from "./growth-studies"
 import { createNewStudyRenderer, drawGeneva } from "./new-studies"
 import { createGravityWellRenderer } from "./gravity-well"
 import { createPrismRenderer } from "./prism"
+import { drawPeaucellier } from "./peaucellier"
 import type { Study } from "@/lib/studies"
 
 type Point = { x: number; y: number }
@@ -90,6 +91,8 @@ function draw(
     extra.drawGravityWell(ctx, t, parameter, guides)
   } else if (study.kind === "prism") {
     extra.drawPrism(ctx, t, parameter, guides)
+  } else if (study.kind === "peaucellier") {
+    drawPeaucellier(ctx, t, parameter, guides)
   } else if (study.kind === "linkage") {
     const centers = [
       { x: 208, y: 118 },

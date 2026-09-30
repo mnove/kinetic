@@ -415,5 +415,21 @@ export const studies = [
     max: 65,
     initial: 55,
   },
+  {
+    slug: "peaucellier-lipkin",
+    number: "27",
+    title: "Peaucellier–Lipkin",
+    category: "Linkages",
+    kind: "peaucellier",
+    color: "#e8e8e8",
+    subtitle: "A circle, made straight.",
+    description:
+      "A crank swings through an arc, and seven rigid bars turn that circular motion into a perfectly straight line. Two long arms and a rhombus hold the crank’s end and the pen on one ray from the fixed pivot, with the product of their distances always the same, so the pen's path is the crank circle turned inside out. It was the first linkage proven to draw an exact line. Offset the crank’s pivot and the circle no longer passes through the fixed pivot, bowing the line into a gentle arc. Guides show the crank circle, the ideal line, and the ray that ties the two ends together.",
+    principle: "Geometric inversion",
+    parameter: "Crank offset",
+    min: -20,
+    max: 20,
+    initial: 0,
+  },
 ] as const
 export type Study = (typeof studies)[number]
