@@ -9,7 +9,7 @@ const title = "Kinetic — Studies in motion"
 // Deliberately count-free so adding studies never makes this stale (the same
 // reason og.png carries no number).
 const description =
-  "Interactive studies in motion. Simple rules, infinite motion."
+  "Interactive animations of ideas from math and physics, like pendulums, linkages, orbits and optical illusions, drawn live in the browser."
 
 export const Route = createRootRoute({
   head: () => ({

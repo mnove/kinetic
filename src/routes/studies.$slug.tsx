@@ -37,7 +37,7 @@ function StudyPage({ study }: { study: Study }) {
       <SiteHeader />
       <main className="detail">
         <Link to="/" className="back-link">
-          <ArrowLeft size={15} /> Back to the collection
+          <ArrowLeft size={15} /> Back to all studies
         </Link>
         <div className="detail-heading">
           <div>
@@ -71,12 +71,12 @@ function StudyPage({ study }: { study: Study }) {
               reset={reset}
             />
             <span className="canvas-caption">
-              SIMPLE RULES. INFINITE MOTION.
+              RENDERED LIVE IN YOUR BROWSER
             </span>
           </div>
           <aside className="controls">
-            <span className="eyebrow">MAKE IT YOUR OWN</span>
-            <h2>A change of pace.</h2>
+            <span className="eyebrow">CONTROLS</span>
+            <h2>How it works.</h2>
             <p>{study.description}</p>
             <div className="playback">
               <Button className="flex-1" onClick={() => setPlaying(!playing)}>
@@ -140,14 +140,14 @@ function StudyPage({ study }: { study: Study }) {
               />
             </div>
             <p className="control-note">
-              Small adjustments. New perspectives.
-              <br />
-              Take your time exploring.
+              The reset button restores the default settings.
             </p>
           </aside>
         </div>
         <div className="detail-bottom">
-          <span>WITH MOTION, FORM BECOMES POSSIBILITY.</span>
+          <span>
+            STUDY {study.number} OF {studies.length}
+          </span>
           <Link to="/studies/$slug" params={{ slug: next.slug }}>
             Next study: {next.title} <ArrowRight size={16} />
           </Link>

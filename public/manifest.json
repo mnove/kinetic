@@ -1,7 +1,7 @@
 {
   "short_name": "Kinetic",
   "name": "Kinetic — Studies in motion",
-  "description": "Interactive studies in motion. Simple rules, infinite motion.",
+  "description": "Interactive animations of ideas from math and physics, like pendulums, linkages, orbits and optical illusions, drawn live in the browser.",
   "icons": [
     {
       "src": "favicon.ico",
