@@ -44,11 +44,11 @@ function Gallery() {
             <div className="intro-aside">
               <p>
                 Pendulum waves, Möbius strips, Chladni patterns and more, each
-                one a few lines of math animated live.
-                <br />A personal side project, made just for fun.
+                animated live from its math.
+                <br />A personal side project, made for fun.
               </p>
               <a href="#collection">
-                Explore the collection <ArrowDown size={15} />
+                Browse the studies <ArrowDown size={15} />
               </a>
               <a
                 href="https://github.com/mnove/kinetic"
@@ -152,25 +152,29 @@ function Gallery() {
             ))}
           </div>
           <div className="collection-end">
-            <span>{studies.length} STUDIES. COUNTLESS WAYS TO SEE.</span>
+            <span>{studies.length} STUDIES</span>
             <span>
-              More experiments to come <span className="tiny-cross">+</span>
+              More coming soon <span className="tiny-cross">+</span>
             </span>
           </div>
         </section>
         <section id="about" className="about">
-          <span className="eyebrow">A NOTE ON THE PROJECT</span>
+          <span className="eyebrow">ABOUT</span>
           <h2>
-            A little less scrolling.
-            <br />A little more <em>looking.</em>
+            Math and physics,
+            <br />
+            <em>animated.</em>
           </h2>
           <div>
             <p>
-              Kinetic is a collection of small experiments in motion. Familiar
-              shapes, simple mathematical rules, and the unexpected beauty that
-              happens when they meet.
+              Kinetic is a collection of small animations of ideas from math and
+              physics: pendulums, linkages, orbits, optical illusions and more.
+              Each one is drawn live in your browser.
             </p>
-            <p>Open a study. Change the rhythm. Stay for a while.</p>
+            <p>
+              Open a study to change its speed and main setting, or turn on
+              guides to see how it works.
+            </p>
             <p>
               Kinetic is open source, created by{" "}
               <a
@@ -183,7 +187,7 @@ function Gallery() {
               . Read the code, fork it, or contribute a study.
             </p>
             <a href="#collection">
-              Explore the collection <ArrowUpRight size={16} />
+              Browse the studies <ArrowUpRight size={16} />
             </a>
             <a
               href="https://github.com/mnove/kinetic"
