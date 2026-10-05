@@ -362,12 +362,18 @@ function CanvasArtwork({
     let frame = 0,
       last = 0,
       visible = true
+    // What the canvas currently shows. Every renderer is a pure function of
+    // these inputs, so a paused or reduced-motion card can skip repainting
+    // until one of them changes.
+    const drawn = { time: NaN, parameter: NaN, guides: false }
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = 600 * dpr
       canvas.height = 420 * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      // Resizing the backing store clears it.
+      drawn.time = NaN
     }
     resize()
     const observer = new IntersectionObserver(([entry]) => {
@@ -380,7 +386,16 @@ function CanvasArtwork({
       const s = settings.current
       if (visible) {
         if (s.playing && !motion.matches) time.current += delta * s.speed
-        draw(ctx, study, time.current, s.parameter, s.guides, extra)
+        if (
+          time.current !== drawn.time ||
+          s.parameter !== drawn.parameter ||
+          s.guides !== drawn.guides
+        ) {
+          draw(ctx, study, time.current, s.parameter, s.guides, extra)
+          drawn.time = time.current
+          drawn.parameter = s.parameter
+          drawn.guides = s.guides
+        }
       }
       frame = requestAnimationFrame(tick)
     }
